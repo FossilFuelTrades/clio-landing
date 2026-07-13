@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CLIO Creative Concepts runs your store, listings, content, ads, and email for one flat monthly rate. Operators, not planners. Month-to-month, judged on the first weekly report.">
+  <title>CLIO Creative Concepts — We run your marketing and ecommerce</title>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cliocreativeconcepts.com">
+  <meta property="og:title" content="CLIO Creative Concepts — We run your marketing and ecommerce">
+  <meta property="og:description" content="CLIO Creative Concepts runs your store, listings, content, ads, and email for one flat monthly rate. Operators, not planners. Month-to-month, judged on the first weekly report.">
+  <meta property="og:image" content="https://cliocreativeconcepts.com/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CLIO Creative Concepts — We run your marketing and ecommerce">
+  <meta name="twitter:description" content="CLIO Creative Concepts runs your store, listings, content, ads, and email for one flat monthly rate. Operators, not planners. Month-to-month, judged on the first weekly report.">
+  <meta name="twitter:image" content="https://cliocreativeconcepts.com/assets/og-card.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f1115'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' fill='%23c9a227' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #0f1115;
+      --ink: #f0ede5;
+      --muted: #9aa2ad;
+      --accent: #c9a227;
+      --navy: #1e3a5f;
+      --dark-bg: #f2efe7;
+      --dark-ink: #16181d;
+      --maxw: 1140px;
+      --radius: 14px;
+      --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --nav-h: 76px;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-padding-top: var(--nav-h);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html {
+        scroll-behavior: smooth;
+      }
+    }
+
+    html, body {
+      font-family: var(--font-sans);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ===== MOTION (progressive enhancement — .js set by script) ===== */
+    .js [data-reveal] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    .js [data-reveal].is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .js [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      scroll-margin-top: var(--nav-h);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #14161a;
+      border: none;
+      border-radius: var(--radius);
+      padding: 1rem 2.1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: filter 0.2s var(--ease-out), transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.12);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px -14px color-mix(in srgb, var(--accent) 65%, transparent);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 0.9rem 1.85rem;
+      font-size: 0.98rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn-outline:hover {
+      background: var(--accent);
+      color: #14161a;
+    }
+
+    .btn-outline:active {
+      transform: translateY(1px);
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      background: #0f1115;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+      border-bottom: 1px solid transparent;
+      transition: height 0.35s var(--ease-out), border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+    }
+
+    .nav.is-scrolled {
+      height: 60px;
+      border-bottom-color: color-mix(in srgb, var(--ink) 10%, transparent);
+      box-shadow: 0 8px 30px -18px color-mix(in srgb, var(--ink) 35%, transparent);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .wordmark {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .wordmark-clio {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .wordmark-sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.85rem, 2vw, 2rem);
+      min-width: 0;
+    }
+
+    .nav-scroll {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.85rem, 2vw, 2rem);
+      min-width: 0;
+    }
+
+    .nav-links .btn-primary {
+      flex-shrink: 0;
+    }
+
+    /* ensure every nav link/button meets a 44px minimum tap target */
+    .nav-links a {
+      min-height: 44px;
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-links a:not(.btn-primary) {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s ease;
+    }
+
+    .nav-links a:not(.btn-primary):hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .nav .btn-primary {
+      padding: 0.62rem 1.35rem;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 640px) {
+      .wordmark-sub {
+        display: none;
+      }
+
+      .nav-links {
+        gap: 0.5rem;
+      }
+
+      .nav-scroll {
+        gap: 0.55rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        mask-image: linear-gradient(to right, black calc(100% - 18px), transparent);
+        -webkit-mask-image: linear-gradient(to right, black calc(100% - 18px), transparent);
+      }
+
+      .nav-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-links a:not(.btn-primary) {
+        font-size: 0.78rem;
+        min-width: 0;
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 0.35rem 0.3rem;
+      }
+
+      .nav .btn-primary {
+        padding: 0.55rem 0.85rem;
+        font-size: 0.78rem;
+      }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding-top: calc(var(--nav-h) + clamp(3.5rem, 9vw, 7rem));
+      padding-bottom: clamp(4rem, 10vw, 8rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(2.5rem, 5vw, 4rem);
+      align-items: center;
+    }
+
+    /* framed real-work media, Front Row-style */
+    .hero-media {
+      border-radius: calc(var(--radius) + 6px);
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+      box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-media video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      background: #000;
+    }
+
+    @media (min-width: 940px) {
+      .hero-grid {
+        grid-template-columns: 7fr 5fr;
+      }
+    }
+
+    @media (max-width: 939px) {
+      .hero-media {
+        max-width: 420px;
+      }
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2.7rem, 7.2vw + 0.5rem, 6.25rem);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      max-width: 16ch;
+    }
+
+    .hero .h1-b {
+      display: block;
+      font-style: italic;
+      color: var(--accent);
+      margin-top: 0.08em;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5.6vw + 0.5rem, 5.25rem);
+    }
+
+    .hero .hero-sub {
+      margin-top: clamp(1.75rem, 4vw, 2.75rem);
+      font-size: clamp(1.05rem, 1vw + 0.9rem, 1.25rem);
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 56ch;
+    }
+
+    .hero .hero-cta {
+      margin-top: clamp(1.75rem, 4vw, 2.5rem);
+    }
+
+    .hero .hero-micro {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+
+    /* ===== STORY ===== */
+    .story {
+      padding: clamp(3.5rem, 9vw, 7rem) 0;
+    }
+
+    .story-beats {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      row-gap: clamp(3rem, 7vw, 4.5rem);
+    }
+
+    .beat {
+      grid-column: 1 / -1;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+      padding-top: clamp(1.5rem, 3vw, 2.25rem);
+    }
+
+    .beat-num {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: clamp(4.5rem, 9vw, 7.5rem);
+      font-weight: 400;
+      line-height: 0.85;
+      color: color-mix(in srgb, var(--accent) 26%, transparent);
+      margin-bottom: 0;
+      user-select: none;
+    }
+
+    .beat-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(1.7rem, 2.6vw + 0.7rem, 2.4rem);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-top: -0.55em;
+      margin-bottom: 0.9rem;
+      max-width: 22ch;
+      position: relative;
+    }
+
+    .beat-text {
+      color: var(--muted);
+      font-size: clamp(1rem, 0.4vw + 0.92rem, 1.08rem);
+      line-height: 1.7;
+      max-width: 52ch;
+    }
+
+    @media (min-width: 860px) {
+      .beat {
+        grid-column: 1 / span 8;
+      }
+
+      .beat:nth-child(even) {
+        grid-column: 5 / span 8;
+      }
+    }
+
+    /* ===== SERVICES ===== */
+    .services {
+      padding: clamp(3.5rem, 9vw, 7rem) 0;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    .services-head {
+      max-width: 46ch;
+      margin-bottom: clamp(2.25rem, 5vw, 3.25rem);
+    }
+
+    .services-kicker {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+    }
+
+    .services-head h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 3.6vw + 0.9rem, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .tile-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.1rem;
+    }
+
+    .tile {
+      border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+      border-radius: var(--radius);
+      padding: clamp(1.6rem, 2.6vw, 2.25rem);
+      background: color-mix(in srgb, #ffffff 3%, transparent);
+      transition: border-color 0.25s var(--ease-out), transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+    }
+
+    .tile:hover {
+      border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+      transform: translateY(-5px);
+      box-shadow: 0 24px 45px -30px rgba(0, 0, 0, 0.9);
+    }
+
+    .tile-rule {
+      display: block;
+      width: 2.25rem;
+      height: 4px;
+      background: var(--accent);
+      margin-bottom: 1.1rem;
+      transition: width 0.3s var(--ease-out);
+    }
+
+    .tile:hover .tile-rule {
+      width: 3.75rem;
+    }
+
+    .tile-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 1.2rem;
+      line-height: 1.3;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+
+    .tile-text {
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.65;
+    }
+
+    @media (min-width: 640px) {
+      .tile-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.35rem;
+      }
+    }
+
+    /* asymmetric editorial grid: 4/2 · 2/4 · 3/3 spans */
+    @media (min-width: 940px) {
+      .tile-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+
+      .tile:nth-child(1) { grid-column: span 4; }
+      .tile:nth-child(2) { grid-column: span 2; }
+      .tile:nth-child(3) { grid-column: span 2; }
+      .tile:nth-child(4) { grid-column: span 4; }
+      .tile:nth-child(5) { grid-column: span 3; }
+      .tile:nth-child(6) { grid-column: span 3; }
+    }
+
+    /* ===== MATH ===== */
+    .math {
+      background: var(--dark-bg);
+      color: var(--dark-ink);
+      padding: clamp(4.5rem, 11vw, 9rem) 0;
+    }
+
+    .math-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(2.75rem, 7vw, 3rem);
+    }
+
+    .math-col {
+      border-top: 1px solid color-mix(in srgb, var(--dark-ink) 18%, transparent);
+      padding-top: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .math-kicker {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: color-mix(in srgb, var(--dark-ink) 70%, transparent);
+      margin-bottom: 1rem;
+    }
+
+    .math-kicker--accent {
+      color: var(--navy);
+    }
+
+    .math-figure {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(1.9rem, 2.5vw + 1.1rem, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: clamp(1.1rem, 2.5vw, 1.5rem);
+    }
+
+    .math-figure--accent {
+      color: var(--navy);
+      font-size: clamp(3rem, 6.5vw + 1.2rem, 5.75rem);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .math-text {
+      color: color-mix(in srgb, var(--dark-ink) 74%, transparent);
+      font-size: clamp(1rem, 0.4vw + 0.92rem, 1.08rem);
+      line-height: 1.7;
+      max-width: 40ch;
+    }
+
+    .math-footer {
+      margin-top: clamp(2.5rem, 6vw, 4rem);
+      padding-top: clamp(1.5rem, 3vw, 2rem);
+      border-top: 1px solid color-mix(in srgb, var(--dark-ink) 18%, transparent);
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      color: color-mix(in srgb, var(--dark-ink) 62%, transparent);
+    }
+
+    @media (min-width: 720px) {
+      .math-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(3rem, 6vw, 5rem);
+      }
+
+      .math-col--clio {
+        padding-left: clamp(3rem, 6vw, 5rem);
+        border-left: 1px solid color-mix(in srgb, var(--dark-ink) 18%, transparent);
+      }
+    }
+
+    /* ===== PRICING ===== */
+    .pricing {
+      padding: clamp(3.5rem, 9vw, 7rem) 0;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    .pricing-head {
+      max-width: 46ch;
+      margin-bottom: clamp(2.25rem, 5vw, 3.25rem);
+    }
+
+    .pricing-head h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 3.6vw + 0.9rem, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+
+    .pricing-sub {
+      color: var(--muted);
+      font-size: clamp(1rem, 0.4vw + 0.92rem, 1.08rem);
+      line-height: 1.6;
+      max-width: 42ch;
+    }
+
+    .tier-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .tier {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+      border-radius: var(--radius);
+      padding: clamp(1.75rem, 2.8vw, 2.25rem);
+      transition: border-color 0.15s ease;
+    }
+
+    /* the focal card: paper-filled on the dark page, everything inside inverts */
+    .tier--standard {
+      background: var(--dark-bg);
+      border-color: var(--dark-bg);
+      color: var(--dark-ink);
+      box-shadow: 0 30px 60px -35px rgba(0, 0, 0, 0.85);
+    }
+
+    .tier--standard .tier-name,
+    .tier--standard .tier-price,
+    .tier--standard .tier-story {
+      color: var(--dark-ink);
+    }
+
+    .tier--standard .tier-period {
+      color: color-mix(in srgb, var(--dark-ink) 60%, transparent);
+    }
+
+    .tier--standard .tier-story {
+      border-bottom-color: color-mix(in srgb, var(--dark-ink) 15%, transparent);
+    }
+
+    .tier--standard .tier-bullets {
+      color: color-mix(in srgb, var(--dark-ink) 72%, transparent);
+    }
+
+    .tier--standard .tier-bullets li + li {
+      border-top-color: color-mix(in srgb, var(--dark-ink) 12%, transparent);
+    }
+
+    .tier--standard .btn-primary {
+      background: var(--dark-ink);
+      color: var(--dark-bg);
+    }
+
+    .tier--standard .btn-primary:hover {
+      box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.6);
+    }
+
+    .tier-tag {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+    }
+
+    .tier--standard .tier-tag {
+      color: var(--navy);
+    }
+
+    .tier-name {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 1.25rem;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .tier-price {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(1.9rem, 2vw + 1.2rem, 2.35rem);
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 1.1rem;
+    }
+
+    .tier-period {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .tier-story {
+      font-style: italic;
+      color: var(--ink);
+      font-size: 1.02rem;
+      line-height: 1.5;
+      margin-bottom: 1.1rem;
+      padding-bottom: 1.1rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    .tier-bullets {
+      list-style: none;
+      padding: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin-bottom: clamp(1.5rem, 3vw, 2rem);
+      flex-grow: 1;
+    }
+
+    .tier-bullets li + li {
+      border-top: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+      padding-top: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .tier-cta {
+      align-self: flex-start;
+    }
+
+    .pricing-footer {
+      margin-top: clamp(2rem, 5vw, 2.75rem);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    @media (min-width: 640px) {
+      .tier-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ===== PROOF ===== */
+    .proof {
+      padding: clamp(3.5rem, 9vw, 7rem) 0;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    .proof-head {
+      max-width: 46ch;
+      margin-bottom: clamp(2.5rem, 6vw, 3.5rem);
+    }
+
+    .proof-kicker {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+    }
+
+    .proof-head h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 3.6vw + 0.9rem, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .proof-row {
+      padding-top: clamp(2rem, 4vw, 2.75rem);
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    .proof-row + .proof-row {
+      margin-top: clamp(3rem, 7vw, 4.5rem);
+    }
+
+    .proof-row-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(1.35rem, 1.8vw + 0.75rem, 1.7rem);
+      line-height: 1.25;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      max-width: 30ch;
+    }
+
+    .operators-copy {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: clamp(1rem, 0.4vw + 0.92rem, 1.08rem);
+      line-height: 1.7;
+      max-width: 56ch;
+    }
+
+    /* -- work row: video cards -- */
+    .work-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: clamp(1.75rem, 3.5vw, 2.25rem);
+    }
+
+    .video-card {
+      border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-card video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .video-cap {
+      padding: 0.9rem 1.1rem 1.1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .video-card--todo {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    /* -- operators row: dashboard slots -- */
+    .dash-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: clamp(1.75rem, 3.5vw, 2.25rem);
+    }
+
+    .dash-slot {
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .work-grid,
+      .dash-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.35rem;
+      }
+    }
+
+    @media (min-width: 940px) {
+      .work-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* -- process row: weekly report mock -- */
+    .report-mock {
+      margin-top: clamp(1.75rem, 3.5vw, 2.25rem);
+      border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+      border-radius: var(--radius);
+      padding: clamp(1.75rem, 3.5vw, 2.25rem);
+      background: color-mix(in srgb, var(--ink) 3%, var(--bg));
+    }
+
+    .report-cols {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .report-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .report-col-label {
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+    }
+
+    .report-bar {
+      display: block;
+      height: 0.65rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--ink) 12%, transparent);
+      margin-bottom: 0.55rem;
+    }
+
+    .report-bar:last-child {
+      margin-bottom: 0;
+    }
+
+    .report-bar--full { width: 88%; }
+    .report-bar--lg { width: 74%; }
+    .report-bar--md { width: 58%; }
+    .report-bar--sm { width: 42%; }
+
+    .report-caption {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    @media (min-width: 640px) {
+      .report-cols {
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(2rem, 4vw, 3rem);
+      }
+
+      .report-col + .report-col {
+        padding-left: clamp(2rem, 4vw, 3rem);
+        border-left: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+      }
+    }
+
+    /* -- visually-hidden utility (accessible heading text, no visual footprint) -- */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* -- founder placeholder marker (utility; reused by later sections) -- */
+    .todo-founder {
+      border: 1.5px dashed #d97706;
+      border-radius: var(--radius);
+      background: color-mix(in srgb, #d97706 8%, transparent);
+    }
+
+    .todo-label {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.5;
+      color: #e8a33d;
+    }
+
+    /* ===== BOOK ===== */
+    .book {
+      padding: clamp(4.5rem, 11vw, 8.5rem) 0 clamp(3.5rem, 9vw, 7rem);
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+      text-align: center;
+    }
+
+    .book-inner {
+      max-width: 640px;
+    }
+
+    .book-head h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2.5rem, 4.6vw + 1rem, 4.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.1rem;
+    }
+
+    .book-sub {
+      color: var(--muted);
+      font-size: clamp(1.02rem, 0.4vw + 0.95rem, 1.15rem);
+      line-height: 1.65;
+      max-width: 46ch;
+      margin: 0 auto clamp(2.5rem, 6vw, 3.5rem);
+    }
+
+    .book-embed-wrap {
+      margin: 0 auto;
+      padding: clamp(2.5rem, 6vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .todo-founder p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-width: 32ch;
+    }
+
+    .fallback {
+      margin-top: clamp(1.5rem, 4vw, 2.25rem);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .fallback a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+      background: color-mix(in srgb, var(--ink) 4%, var(--bg));
+      padding: clamp(1.75rem, 4vw, 2.5rem) 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      text-align: center;
+    }
+
+    .footer-line {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .footer-terms {
+      font-size: 0.76rem;
+      letter-spacing: 0.03em;
+      color: color-mix(in srgb, var(--muted) 78%, transparent);
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    /* ===== SCROLL PROGRESS (scroll-driven, progressive) ===== */
+    @supports (animation-timeline: scroll()) {
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 100%;
+        background: var(--accent);
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+        z-index: 200;
+        animation: progress-grow linear both;
+        animation-timeline: scroll(root);
+      }
+
+      @keyframes progress-grow {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+      }
+
+      .hero-media {
+        animation: hero-drift linear both;
+        animation-timeline: view();
+        animation-range: entry 0% exit 100%;
+      }
+
+      @keyframes hero-drift {
+        from { transform: translateY(4%); }
+        to { transform: translateY(-6%); }
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-progress, .hero-media {
+        animation: none !important;
+      }
+    }
+
+    /* ===== PLATFORM MARQUEE ===== */
+    .marquee {
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+      overflow: hidden;
+      padding: clamp(1.1rem, 2.5vw, 1.6rem) 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: clamp(2.5rem, 5vw, 4rem);
+      width: max-content;
+      animation: marquee-scroll 30s linear infinite;
+    }
+
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .marquee-item {
+      font-family: var(--font-serif);
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      color: color-mix(in srgb, var(--ink) 55%, transparent);
+      white-space: nowrap;
+    }
+
+    .marquee-item::after {
+      content: "·";
+      color: var(--accent);
+      margin-left: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track {
+        animation: none;
+        flex-wrap: wrap;
+        width: auto;
+        justify-content: center;
+      }
+    }
+
+    /* ===== CASE CARDS (work showcase) ===== */
+    .case-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1.5rem, 3vw, 2.25rem);
+      margin-top: clamp(1.75rem, 3.5vw, 2.25rem);
+    }
+
+    .case-card {
+      border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+      border-radius: calc(var(--radius) + 4px);
+      overflow: hidden;
+      background: color-mix(in srgb, #ffffff 3%, transparent);
+      transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    }
+
+    .case-card:hover {
+      border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+      transform: translateY(-4px);
+      box-shadow: 0 30px 60px -35px rgba(0, 0, 0, 0.9);
+    }
+
+    .case-media {
+      overflow: hidden;
+      background: #000;
+    }
+
+    .case-media video,
+    .case-media img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+
+    .case-card:hover .case-media video,
+    .case-card:hover .case-media img {
+      transform: scale(1.03);
+    }
+
+    .case-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 1.1rem 1.35rem 1.25rem;
+    }
+
+    .case-title {
+      font-family: var(--font-serif);
+      font-size: 1.08rem;
+      color: var(--ink);
+    }
+
+    .case-chips {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+      border-radius: 999px;
+      padding: 0.28rem 0.7rem;
+      white-space: nowrap;
+    }
+
+    .case-card--todo {
+      aspect-ratio: 16 / 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    @media (min-width: 860px) {
+      .case-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .case-card--wide {
+        grid-column: 1 / -1;
+      }
+
+      .case-card--wide .case-media video,
+      .case-card--wide .case-media img {
+        aspect-ratio: 21 / 9;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="wordmark" href="#hero" aria-label="CLIO Creative Concepts">
+        <span class="wordmark-clio">CLIO</span><span class="wordmark-sub">Creative Concepts</span>
+      </a>
+      <div class="nav-links">
+        <div class="nav-scroll">
+          <a href="#services">Services</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#proof">Work</a>
+          <a href="#story">About us</a>
+        </div>
+        <a href="#book" class="btn-primary">Book a call</a>
+      </div>
+    </div>
+  </nav>
+
+  <section id="hero" class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1 data-reveal><span class="h1-a">We run your marketing and ecommerce.</span> <span class="h1-b">You run your business.</span></h1>
+          <p class="hero-sub" data-reveal style="--reveal-delay: 120ms">We're operators, not planners — we run our own Amazon and eBay stores every day and have spent years working with million-dollar ecommerce companies. Now we run store ops, listings, content, ads, and email for businesses like yours — as one team, for one flat rate.</p>
+          <div class="hero-cta" data-reveal style="--reveal-delay: 240ms">
+            <a href="#book" class="btn-primary">Book your free audit call</a>
+          </div>
+          <p class="hero-micro" data-reveal style="--reveal-delay: 330ms">15 minutes · free audit either way · no contracts</p>
+        </div>
+        <div class="hero-media" data-reveal style="--reveal-delay: 200ms">
+          <video controls preload="none" poster="assets/baby-lounger-lifestyle-poster.jpg" playsinline aria-label="Product lifestyle spot — ecommerce brand" muted loop>
+            <source src="assets/baby-lounger-lifestyle.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Amazon</span>
+      <span class="marquee-item">Shopify</span>
+      <span class="marquee-item">Walmart</span>
+      <span class="marquee-item">eBay</span>
+      <span class="marquee-item">Etsy</span>
+      <span class="marquee-item">TikTok Shop</span>
+      <span class="marquee-item">Amazon</span>
+      <span class="marquee-item">Shopify</span>
+      <span class="marquee-item">Walmart</span>
+      <span class="marquee-item">eBay</span>
+      <span class="marquee-item">Etsy</span>
+      <span class="marquee-item">TikTok Shop</span>
+    </div>
+  </div>
+
+  <section id="story" class="story">
+    <div class="wrap">
+      <ol class="story-beats">
+        <li class="beat" data-reveal>
+          <span class="beat-num">01</span>
+          <h2 class="beat-title">Who we are</h2>
+          <p class="beat-text">Two operators and a working team. We build and run ecommerce businesses ourselves — our own storefronts, our own listings, our own ad accounts. When we say we know what moves product, it's because we do it daily with our own money.</p>
+        </li>
+        <li class="beat" data-reveal>
+          <span class="beat-num">02</span>
+          <h2 class="beat-title">What we've done</h2>
+          <p class="beat-text">We've spent years inside million-dollar ecommerce operations: listings built the way marketplaces actually rank them, campaigns that get judged on sales, content calendars that ship every week without drama.</p>
+        </li>
+        <li class="beat" data-reveal>
+          <span class="beat-num">03</span>
+          <h2 class="beat-title">What we'd do for you</h2>
+          <p class="beat-text">Everything your growth needs, run as one operation: your store and marketplaces, your listings and SEO, your content and social, your ads, your email. One team, one plan, one weekly report that tells you exactly what sold and why.</p>
+        </li>
+        <li class="beat" data-reveal>
+          <span class="beat-num">04</span>
+          <h2 class="beat-title">Why this beats a hire</h2>
+          <p class="beat-text">One marketing hire costs $5–18K a month loaded — and they still can't be the designer, the copywriter, the ads specialist, and the analyst at once. We're the whole bench, from $1,997 a month, month-to-month. Judge us on the first weekly report.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="wrap">
+      <div class="services-head" data-reveal>
+        <span class="services-kicker">What we run</span>
+        <h2>Every channel that moves product, run by one team.</h2>
+      </div>
+      <ul class="tile-grid">
+        <li class="tile" data-reveal>
+          <span class="tile-rule"></span>
+          <h3 class="tile-title">Store &amp; marketplace ops</h3>
+          <p class="tile-text">Daily monitoring, account health, Buy Box, inventory signals — the unglamorous work that protects your rank.</p>
+        </li>
+        <li class="tile" data-reveal>
+          <span class="tile-rule"></span>
+          <h3 class="tile-title">Listings &amp; SEO</h3>
+          <p class="tile-text">Created, optimized, and maintained: titles, bullets, backend keywords, A+ content — built the way marketplaces rank them.</p>
+        </li>
+        <li class="tile" data-reveal>
+          <span class="tile-rule"></span>
+          <h3 class="tile-title">Content &amp; social</h3>
+          <p class="tile-text">Posts, video, and the calendar that keeps it all shipping — content made to move product, not fill a feed.</p>
+        </li>
+        <li class="tile" data-reveal>
+          <span class="tile-rule"></span>
+          <h3 class="tile-title">Paid campaigns</h3>
+          <p class="tile-text">Flat fee, never a percentage of your ad spend. Campaigns judged on what they sell.</p>
+        </li>
+        <li class="tile" data-reveal>
+          <span class="tile-rule"></span>
+          <h3 class="tile-title">Email &amp; retention</h3>
+          <p class="tile-text">Automations built, campaigns shipped, deliverability protected — the channel most stores leave for dead.</p>
+        </li>
+        <li class="tile" data-reveal>
+          <span class="tile-rule"></span>
+          <h3 class="tile-title">Weekly reporting</h3>
+          <p class="tile-text">Every week: what sold, what changed, what we're doing next — in plain English. This is what you judge us on.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="math" class="math">
+    <div class="wrap">
+      <h2 class="visually-hidden">The cost math</h2>
+      <div class="math-grid">
+        <div class="math-col" data-reveal>
+          <span class="math-kicker">The hire</span>
+          <p class="math-figure">$5,000&ndash;$18,000/mo</p>
+          <p class="math-text">salary, loaded costs, one person's hours, one person's skills — and you manage them.</p>
+        </div>
+        <div class="math-col math-col--clio" data-reveal style="--reveal-delay: 150ms">
+          <span class="math-kicker math-kicker--accent">CLIO</span>
+          <p class="math-figure math-figure--accent">from $<span class="count" data-count-target="1997">1,997</span>/mo</p>
+          <p class="math-text">a full team — strategy, creative, copy, ads, analysis — month-to-month, cancel anytime, judged on the first weekly report.</p>
+        </div>
+      </div>
+      <p class="math-footer">flat monthly · no lock-ins · never a % of ad spend</p>
+    </div>
+  </section>
+
+  <section id="pricing" class="pricing">
+    <div class="wrap">
+      <div class="pricing-head" data-reveal>
+        <h2>One service. Four sizes.</h2>
+        <p class="pricing-sub">Founding rates — early clients keep their rate as prices step up.</p>
+      </div>
+      <ul class="tier-grid">
+        <li class="tier" data-reveal>
+          <h3 class="tier-name">Basic</h3>
+          <p class="tier-price">$1,997<span class="tier-period">/mo</span></p>
+          <p class="tier-story">"Run my store right"</p>
+          <ul class="tier-bullets">
+            <li>1 marketplace</li>
+            <li>20 SKUs worked</li>
+            <li>listings created, optimized, maintained</li>
+            <li>daily monitoring</li>
+            <li>weekly optimization on money products</li>
+            <li>weekly report</li>
+          </ul>
+          <a href="#book" class="btn-primary tier-cta">Book a call</a>
+        </li>
+        <li class="tier tier--standard" data-reveal style="--reveal-delay: 100ms">
+          <span class="tier-tag">Most popular</span>
+          <h3 class="tier-name">Standard</h3>
+          <p class="tier-price">$2,997<span class="tier-period">/mo</span></p>
+          <p class="tier-story">"Run everything I sell on"</p>
+          <ul class="tier-bullets">
+            <li>up to 3 marketplaces + TikTok Shop</li>
+            <li>75 SKUs</li>
+            <li>catalog-scale listings</li>
+            <li>account health, Buy Box, search-term reports</li>
+            <li>quarterly site CRO</li>
+            <li>weekly report + call</li>
+          </ul>
+          <a href="#book" class="btn-primary tier-cta">Book a call</a>
+        </li>
+        <li class="tier" data-reveal>
+          <h3 class="tier-name">Premium</h3>
+          <p class="tier-price">$4,997<span class="tier-period">/mo</span></p>
+          <p class="tier-story">"Run my whole growth engine"</p>
+          <ul class="tier-bullets">
+            <li>everything in Standard, 150 SKUs</li>
+            <li>paid ads: 2 channels, flat fee</li>
+            <li>social run for you: 16 posts + 4 videos/mo</li>
+            <li>full email automation + 2 campaigns/mo</li>
+            <li>weekly report + call</li>
+          </ul>
+          <a href="#book" class="btn-primary tier-cta">Book a call</a>
+        </li>
+        <li class="tier" data-reveal>
+          <h3 class="tier-name">Enterprise</h3>
+          <p class="tier-price">Custom</p>
+          <p class="tier-story">"Run my operation"</p>
+          <ul class="tier-bullets">
+            <li>4+ platforms or multi-brand</li>
+            <li>no set SKU number</li>
+            <li>custom cadence</li>
+            <li>the free audit produces the quote</li>
+          </ul>
+          <a href="#book" class="btn-outline tier-cta">Book a call</a>
+        </li>
+      </ul>
+      <p class="pricing-footer">Setup fee $500 — waived for same-day signing.</p>
+    </div>
+  </section>
+
+  <section id="proof" class="proof">
+    <div class="wrap">
+      <div class="proof-head" data-reveal>
+        <span class="proof-kicker">Proof</span>
+        <h2>See the work, not a highlight reel.</h2>
+      </div>
+
+      <div class="proof-row proof-row--work" data-reveal>
+        <h3 class="proof-row-title">The work</h3>
+        <ul class="case-grid">
+          <li class="case-card case-card--wide" data-reveal>
+            <div class="case-media">
+              <video preload="none" poster="assets/baby-lounger-lifestyle-poster.jpg" playsinline muted loop data-hoverplay aria-label="Product lifestyle spot — ecommerce brand">
+                <source src="assets/baby-lounger-lifestyle.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="case-meta">
+              <span class="case-title">Product lifestyle spot — DTC baby brand</span>
+              <span class="case-chips"><span class="chip">Video</span><span class="chip">Paid social</span></span>
+            </div>
+          </li>
+          <li class="case-card" data-reveal>
+            <div class="case-media">
+              <img src="assets/case-listing-suite.png" alt="Amazon listing creative — in-context product image with lifestyle styling" loading="lazy">
+            </div>
+            <div class="case-meta">
+              <span class="case-title">Amazon listing suite — pet care brand</span>
+              <span class="case-chips"><span class="chip">Amazon</span><span class="chip">Listing design</span></span>
+            </div>
+          </li>
+          <li class="case-card" data-reveal>
+            <div class="case-media">
+              <video preload="none" poster="assets/candy-blast-app-poster.jpg" playsinline muted loop data-hoverplay aria-label="Launch promo — consumer app">
+                <source src="assets/candy-blast-app.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="case-meta">
+              <span class="case-title">Launch promo — consumer app</span>
+              <span class="case-chips"><span class="chip">Video</span><span class="chip">Motion</span></span>
+            </div>
+          </li>
+          <!-- FOUNDER: work-sample swap slot (hidden for live; add more case cards here) -->
+        </ul>
+      </div>
+
+      <!-- FOUNDER: operators row hidden until dashboard screenshots land (see SHIP_BLOCKERS.md) — restore this block then:
+      <div class="proof-row proof-row--operators" data-reveal>
+        <h3 class="proof-row-title">The operators</h3>
+        <p class="operators-copy">We sell on the same platforms we manage. These are our own seller dashboards.</p>
+        <ul class="dash-grid">
+          <li class="dash-slot"><img src="" alt="Amazon seller dashboard"></li>
+          <li class="dash-slot"><img src="" alt="eBay seller dashboard"></li>
+        </ul>
+      </div>
+      -->
+
+      <div class="proof-row proof-row--process" data-reveal>
+        <h3 class="proof-row-title">Judge us on the first weekly report.</h3>
+        <div class="report-mock">
+          <div class="report-cols">
+            <div class="report-col">
+              <span class="report-col-label">What sold</span>
+              <span class="report-bar report-bar--full"></span>
+              <span class="report-bar report-bar--sm"></span>
+              <span class="report-bar report-bar--md"></span>
+            </div>
+            <div class="report-col">
+              <span class="report-col-label">What changed</span>
+              <span class="report-bar report-bar--md"></span>
+              <span class="report-bar report-bar--lg"></span>
+            </div>
+            <div class="report-col">
+              <span class="report-col-label">What's next</span>
+              <span class="report-bar report-bar--lg"></span>
+              <span class="report-bar report-bar--sm"></span>
+              <span class="report-bar report-bar--md"></span>
+            </div>
+          </div>
+        </div>
+        <p class="report-caption">Sample format — this is the report every client gets weekly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" class="book">
+    <div class="wrap book-inner">
+      <div class="book-head" data-reveal>
+        <h2>Book your free audit call.</h2>
+        <p class="book-sub">15 minutes. We'll show you where you're leaving money — in plain English — whether or not you hire us.</p>
+      </div>
+      <div class="book-embed-wrap">
+        <!-- FOUNDER: when the Cal.com link lands, restore the embed slot here (see SHIP_BLOCKERS.md) -->
+        <a href="mailto:christian@cliocreativeconcepts.com?subject=Free%20audit%20call" class="btn-primary">Book your free audit call</a>
+      </div>
+      <p class="fallback">Or write to <a href="mailto:christian@cliocreativeconcepts.com">christian@cliocreativeconcepts.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <p class="footer-line">CLIO Creative Concepts LLC · christian@cliocreativeconcepts.com</p>
+      <p class="footer-terms">flat monthly · month-to-month · cancel anytime · never a % of ad spend · weekly report at every tier</p>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      var docEl = document.documentElement;
+      docEl.classList.add('js');
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var revealed = document.querySelectorAll('[data-reveal]');
+
+      if (reduce || !('IntersectionObserver' in window)) {
+        revealed.forEach(function (el) { el.classList.add('is-visible'); });
+      } else {
+        // stagger siblings that share a parent and have no explicit delay
+        var groups = new Map();
+        revealed.forEach(function (el) {
+          if (el.style.getPropertyValue('--reveal-delay')) return;
+          var key = el.parentElement;
+          var idx = groups.get(key) || 0;
+          el.style.setProperty('--reveal-delay', Math.min(idx * 90, 450) + 'ms');
+          groups.set(key, idx + 1);
+        });
+
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+        revealed.forEach(function (el) { io.observe(el); });
+
+        // safety net: nothing may stay invisible if the observer misfires
+        // (hash deep-links, print, exotic browsers) — force-reveal after load
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            revealed.forEach(function (el) { el.classList.add('is-visible'); });
+          }, 1200);
+        });
+      }
+
+      var nav = document.querySelector('.nav');
+      var ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(function () {
+            nav.classList.toggle('is-scrolled', window.scrollY > 32);
+            ticking = false;
+          });
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+      // hover-to-play work videos (desktop only; muted preview)
+      if (finePointer) {
+        document.querySelectorAll('video[data-hoverplay]').forEach(function (v) {
+          var card = v.closest('.case-card') || v;
+          card.addEventListener('mouseenter', function () {
+            v.play().catch(function () {});
+          });
+          card.addEventListener('mouseleave', function () {
+            v.pause();
+            v.currentTime = 0;
+            v.load();
+          });
+        });
+        // click toggles play/pause since controls are hidden on these
+        document.querySelectorAll('video[data-hoverplay]').forEach(function (v) {
+          v.addEventListener('click', function () {
+            if (v.paused) { v.play().catch(function () {}); } else { v.pause(); }
+          });
+        });
+      } else {
+        // touch devices get native controls back
+        document.querySelectorAll('video[data-hoverplay]').forEach(function (v) {
+          v.setAttribute('controls', '');
+        });
+      }
+
+      if (!reduce) {
+        // count-up on the price figure, fires once in view
+        var counter = document.querySelector('[data-count-target]');
+        if (counter && 'IntersectionObserver' in window) {
+          var cio = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              cio.disconnect();
+              var target = parseInt(counter.getAttribute('data-count-target'), 10);
+              var t0 = null;
+              var dur = 1100;
+              function tick(ts) {
+                if (!t0) t0 = ts;
+                var p = Math.min((ts - t0) / dur, 1);
+                var eased = 1 - Math.pow(1 - p, 4);
+                counter.textContent = Math.round(target * eased).toLocaleString('en-US');
+                if (p < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+            });
+          }, { threshold: 0.6 });
+          cio.observe(counter);
+        }
+
+        // magnetic primary buttons (desktop only)
+        if (finePointer) {
+          document.querySelectorAll('.btn-primary').forEach(function (btn) {
+            btn.addEventListener('mousemove', function (e) {
+              var r = btn.getBoundingClientRect();
+              var dx = (e.clientX - r.left - r.width / 2) / r.width;
+              var dy = (e.clientY - r.top - r.height / 2) / r.height;
+              btn.style.transform = 'translate(' + (dx * 7) + 'px,' + (dy * 5 - 2) + 'px)';
+            });
+            btn.addEventListener('mouseleave', function () {
+              btn.style.transform = '';
+            });
+          });
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
