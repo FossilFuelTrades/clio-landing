@@ -1585,6 +1585,8 @@
       .reel-grid { grid-template-columns: repeat(4, 1fr); }
     }
 
+    .case-media--square video { aspect-ratio: 1 / 1; }
+
     .case-card--todo {
       aspect-ratio: 16 / 6;
       display: flex;
@@ -1915,6 +1917,17 @@
             <div class="case-meta">
               <span class="case-title">Cinematic product film — food brand</span>
               <span class="case-chips"><span class="chip">Video</span><span class="chip">Cinematic</span></span>
+            </div>
+          </li>
+          <li class="case-card" data-reveal>
+            <div class="case-media case-media--square">
+              <video preload="none" poster="assets/reel-05-poster.jpg" playsinline muted loop data-hoverplay aria-label="Product video on white — ecommerce">
+                <source src="assets/reel-05.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="case-meta">
+              <span class="case-title">Product video on white — ecommerce</span>
+              <span class="case-chips"><span class="chip">Video</span><span class="chip">Product</span></span>
             </div>
           </li>
           <!-- FOUNDER: work-sample swap slot (hidden for live; add more case cards here) -->
