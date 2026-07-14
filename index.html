@@ -968,6 +968,216 @@
       }
     }
 
+    /* ===== BUILDER (custom plan configurator) ===== */
+    .builder {
+      padding: clamp(3.5rem, 9vw, 7rem) 0;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    .builder-head {
+      max-width: 52ch;
+      margin-bottom: clamp(2.25rem, 5vw, 3.25rem);
+    }
+
+    .builder-head h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 3.6vw + 0.9rem, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .builder-sub {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: clamp(1rem, 0.4vw + 0.92rem, 1.08rem);
+      line-height: 1.6;
+      max-width: 46ch;
+    }
+
+    .builder-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1.75rem, 4vw, 3rem);
+    }
+
+    .builder-group + .builder-group {
+      margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+    }
+
+    .builder-group-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .opt-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    /* a selectable chip; the real control is a visually-hidden input for a11y */
+    .opt {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.7rem 1.1rem;
+      border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: border-color 0.2s var(--ease-out), background 0.2s var(--ease-out), transform 0.15s var(--ease-out);
+      user-select: none;
+      color: var(--ink);
+      font-size: 0.95rem;
+      background: color-mix(in srgb, #ffffff 3%, transparent);
+    }
+
+    .opt:hover { border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+    .opt:active { transform: translateY(1px); }
+
+    .opt input {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .opt-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1.5px solid color-mix(in srgb, var(--ink) 35%, transparent);
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s var(--ease-out), background 0.2s var(--ease-out);
+    }
+
+    .opt-check::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--bg);
+      transform: scale(0);
+      transition: transform 0.18s var(--ease-out);
+    }
+
+    .opt-price {
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .opt.is-on {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+
+    .opt.is-on .opt-check {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    .opt.is-on .opt-check::after { transform: scale(1); }
+    .opt.is-on .opt-price { color: var(--ink); }
+
+    /* radio variant (service focus): single-select */
+    .opt--radio .opt-check { border-radius: 999px; }
+
+    /* summary card */
+    .builder-summary {
+      align-self: start;
+      border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+      border-radius: calc(var(--radius) + 4px);
+      background: color-mix(in srgb, #ffffff 4%, transparent);
+      padding: clamp(1.6rem, 3vw, 2.1rem);
+    }
+
+    .summary-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .summary-price {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(3rem, 6vw + 1rem, 4.75rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      margin: 0.5rem 0 0.15rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .summary-per {
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-family: var(--font-sans);
+    }
+
+    .summary-lines {
+      list-style: none;
+      margin: 1.4rem 0;
+      padding: 1.2rem 0 0;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      min-height: 2rem;
+    }
+
+    .summary-lines li {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .summary-lines li span:last-child {
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .summary-empty {
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-style: italic;
+    }
+
+    .summary-cta { width: 100%; text-align: center; margin-top: 0.4rem; }
+
+    .summary-terms {
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    @media (min-width: 900px) {
+      .builder-grid {
+        grid-template-columns: 1.35fr 1fr;
+        gap: clamp(2.5rem, 5vw, 4rem);
+        align-items: start;
+      }
+      .builder-summary { position: sticky; top: calc(var(--nav-h) + 20px); }
+    }
+
     /* -- visually-hidden utility (accessible heading text, no visual footprint) -- */
     .visually-hidden {
       position: absolute;
@@ -1282,6 +1492,7 @@
         <div class="nav-scroll">
           <a href="#services">Services</a>
           <a href="#pricing">Pricing</a>
+          <a href="#builder">Build a plan</a>
           <a href="#proof">Work</a>
           <a href="#story">About us</a>
         </div>
@@ -1478,6 +1689,44 @@
         </li>
       </ul>
       <p class="pricing-footer">Setup fee $500 — waived for same-day signing.</p>
+    </div>
+  </section>
+
+  <section id="builder" class="builder">
+    <div class="wrap">
+      <div class="builder-head" data-reveal>
+        <span class="services-kicker">Build your plan</span>
+        <h2>Pick what we run. See your price.</h2>
+        <p class="builder-sub">No packages to squeeze into. Choose your focus, your platforms, and the pieces you want. The price moves with you.</p>
+      </div>
+
+      <div class="builder-grid">
+        <div class="builder-choices" data-reveal>
+          <div class="builder-group">
+            <span class="builder-group-label">1 · Your focus</span>
+            <div class="opt-row" id="focus-row"></div>
+          </div>
+          <div class="builder-group">
+            <span class="builder-group-label">2 · Platforms we run</span>
+            <div class="opt-row" id="platform-row"></div>
+          </div>
+          <div class="builder-group">
+            <span class="builder-group-label">3 · Add what you need</span>
+            <div class="opt-row" id="addon-row"></div>
+          </div>
+        </div>
+
+        <aside class="builder-summary" data-reveal style="--reveal-delay: 120ms" aria-live="polite">
+          <span class="summary-label">Your plan</span>
+          <p class="summary-price"><span aria-hidden="true">$</span><span id="price-value">0</span></p>
+          <span class="summary-per">per month, flat</span>
+          <ul class="summary-lines" id="summary-lines">
+            <li class="summary-empty">Start selecting to build your price.</li>
+          </ul>
+          <a href="#book" class="btn-primary summary-cta" id="builder-cta">Book a call to lock this in</a>
+          <p class="summary-terms">month-to-month · cancel anytime · judged on the first weekly report</p>
+        </aside>
+      </div>
     </div>
   </section>
 
@@ -1707,6 +1956,178 @@
           });
         }
       }
+    })();
+  </script>
+
+  <script>
+    // ===================================================================
+    // PRICING ENGINE — edit ONLY the PRICING object after the Don call.
+    // All numbers are placeholders pending final pricing. Everything the
+    // configurator charges lives here; nothing else needs changing.
+    // ===================================================================
+    (function () {
+      var PRICING = {
+        // Service focus sets the base fee (includes core ops + first platform).
+        focus: [
+          { id: 'ecom',      label: 'Ecommerce',        base: 1497 },
+          { id: 'marketing', label: 'Marketing',        base: 1497 },
+          { id: 'both',      label: 'Both',             base: 1997 }
+        ],
+        platformsIncluded: 1,      // first platform is included in the base
+        platformEach: 400,         // each additional platform
+        platforms: ['Amazon', 'Shopify', 'Walmart', 'eBay', 'Etsy', 'TikTok Shop'],
+        addons: [
+          { id: 'ads',     label: 'Paid ads (2 channels, flat)',        price: 1200 },
+          { id: 'social',  label: 'Social content (16 posts + 4 videos)', price: 700 },
+          { id: 'email',   label: 'Email & retention',                  price: 500 },
+          { id: 'sku',     label: 'Extra SKU block (+25)',              price: 450 },
+          { id: 'channel', label: 'Extra ad channel',                   price: 700 },
+          { id: 'brand',   label: 'Brand & creative kit',               price: 500 }
+        ]
+      };
+      // ===================================================================
+
+      var focusRow = document.getElementById('focus-row');
+      var platformRow = document.getElementById('platform-row');
+      var addonRow = document.getElementById('addon-row');
+      if (!focusRow || !platformRow || !addonRow) return;
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var fmt = function (n) { return n.toLocaleString('en-US'); };
+
+      var state = { focus: 'both', platforms: {}, addons: {} };
+      PRICING.platforms.forEach(function (p) { state.platforms[p] = false; });
+      PRICING.addons.forEach(function (a) { state.addons[a.id] = false; });
+
+      function chip(kind, id, label, priceText) {
+        var l = document.createElement('label');
+        l.className = 'opt' + (kind === 'focus' ? ' opt--radio' : '');
+        l.setAttribute('data-kind', kind);
+        l.setAttribute('data-id', id);
+        var input = document.createElement('input');
+        input.type = (kind === 'focus') ? 'radio' : 'checkbox';
+        input.name = (kind === 'focus') ? 'builder-focus' : (kind + '-' + id);
+        var check = document.createElement('span');
+        check.className = 'opt-check';
+        check.setAttribute('aria-hidden', 'true');
+        var text = document.createElement('span');
+        text.textContent = label;
+        l.appendChild(input);
+        l.appendChild(check);
+        l.appendChild(text);
+        if (priceText) {
+          var pr = document.createElement('span');
+          pr.className = 'opt-price';
+          pr.textContent = priceText;
+          l.appendChild(pr);
+        }
+        return { el: l, input: input };
+      }
+
+      // build focus (radio)
+      PRICING.focus.forEach(function (f) {
+        var c = chip('focus', f.id, f.label, '$' + fmt(f.base) + '/mo');
+        if (f.id === state.focus) { c.input.checked = true; c.el.classList.add('is-on'); }
+        c.input.addEventListener('change', function () {
+          state.focus = f.id;
+          focusRow.querySelectorAll('.opt').forEach(function (o) { o.classList.remove('is-on'); });
+          c.el.classList.add('is-on');
+          render();
+        });
+        focusRow.appendChild(c.el);
+      });
+
+      // build platforms (checkbox)
+      PRICING.platforms.forEach(function (p, i) {
+        var priceText = (i < PRICING.platformsIncluded) ? 'included' : '+$' + fmt(PRICING.platformEach);
+        var c = chip('platform', p, p, priceText);
+        c.input.addEventListener('change', function () {
+          state.platforms[p] = c.input.checked;
+          c.el.classList.toggle('is-on', c.input.checked);
+          render();
+        });
+        platformRow.appendChild(c.el);
+      });
+
+      // build add-ons (checkbox)
+      PRICING.addons.forEach(function (a) {
+        var c = chip('addon', a.id, a.label, '+$' + fmt(a.price));
+        c.input.addEventListener('change', function () {
+          state.addons[a.id] = c.input.checked;
+          c.el.classList.toggle('is-on', c.input.checked);
+          render();
+        });
+        addonRow.appendChild(c.el);
+      });
+
+      var priceEl = document.getElementById('price-value');
+      var linesEl = document.getElementById('summary-lines');
+      var ctaEl = document.getElementById('builder-cta');
+      var shownPrice = 0;
+
+      function compute() {
+        var lines = [];
+        var focus = PRICING.focus.filter(function (f) { return f.id === state.focus; })[0];
+        var total = focus.base;
+        lines.push({ label: focus.label + ' base', amount: focus.base });
+
+        var chosen = PRICING.platforms.filter(function (p) { return state.platforms[p]; });
+        var extra = Math.max(0, chosen.length - PRICING.platformsIncluded);
+        if (chosen.length) {
+          var platAmount = extra * PRICING.platformEach;
+          total += platAmount;
+          lines.push({
+            label: chosen.length + ' platform' + (chosen.length > 1 ? 's' : '') + ' (' + chosen.join(', ') + ')',
+            amount: platAmount,
+            note: extra === 0 ? 'included' : null
+          });
+        }
+
+        PRICING.addons.forEach(function (a) {
+          if (state.addons[a.id]) { total += a.price; lines.push({ label: a.label, amount: a.price }); }
+        });
+
+        return { total: total, lines: lines, chosen: chosen };
+      }
+
+      function tween(to) {
+        if (reduce) { shownPrice = to; priceEl.textContent = fmt(to); return; }
+        var from = shownPrice, start = null, dur = 420;
+        function step(ts) {
+          if (start === null) start = ts;
+          var t = Math.min((ts - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - t, 4);
+          var val = Math.round(from + (to - from) * eased);
+          priceEl.textContent = fmt(val);
+          if (t < 1) requestAnimationFrame(step); else shownPrice = to;
+        }
+        requestAnimationFrame(step);
+      }
+
+      function render() {
+        var r = compute();
+        tween(r.total);
+        linesEl.innerHTML = '';
+        r.lines.forEach(function (ln) {
+          var li = document.createElement('li');
+          var a = document.createElement('span'); a.textContent = ln.label;
+          var b = document.createElement('span');
+          b.textContent = ln.note ? ln.note : ('$' + fmt(ln.amount) + '/mo');
+          li.appendChild(a); li.appendChild(b);
+          linesEl.appendChild(li);
+        });
+
+        // build a mailto so the lead's exact plan reaches Christian
+        var summaryText = r.lines.map(function (ln) {
+          return '- ' + ln.label + ': ' + (ln.note || '$' + fmt(ln.amount) + '/mo');
+        }).join('\n');
+        var body = 'Here is the plan I built:\n\n' + summaryText + '\n\nEstimated total: $' + fmt(r.total) + '/mo\n\nI would like to book the free audit call.';
+        ctaEl.setAttribute('href', 'mailto:christian@cliocreativeconcepts.com?subject=' +
+          encodeURIComponent('My custom plan — $' + fmt(r.total) + '/mo') +
+          '&body=' + encodeURIComponent(body));
+      }
+
+      render();
     })();
   </script>
 </body>
