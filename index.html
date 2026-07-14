@@ -1523,6 +1523,68 @@
       white-space: nowrap;
     }
 
+    /* -- reels: vertical creator/UGC clips -- */
+    .reel-label {
+      margin: clamp(2rem, 4vw, 3rem) 0 1.1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .reel-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.1rem;
+    }
+
+    .reel-card {
+      border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+      border-radius: calc(var(--radius) + 4px);
+      overflow: hidden;
+      background: color-mix(in srgb, #ffffff 3%, transparent);
+      transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    }
+
+    .reel-card:hover {
+      border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+      transform: translateY(-4px);
+      box-shadow: 0 30px 60px -35px rgba(0, 0, 0, 0.9);
+    }
+
+    .reel-media {
+      overflow: hidden;
+      background: #000;
+    }
+
+    .reel-media video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+
+    .reel-card:hover .reel-media video { transform: scale(1.03); }
+
+    .reel-meta {
+      padding: 0.9rem 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .reel-meta .case-title { font-size: 0.98rem; }
+
+    @media (min-width: 640px) {
+      .reel-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    }
+    @media (min-width: 940px) {
+      .reel-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
     .case-card--todo {
       aspect-ratio: 16 / 6;
       display: flex;
@@ -1845,6 +1907,22 @@
             </div>
           </li>
           <!-- FOUNDER: work-sample swap slot (hidden for live; add more case cards here) -->
+        </ul>
+
+        <p class="reel-label">Creator &amp; UGC ads</p>
+        <ul class="reel-grid">
+          <li class="reel-card" data-reveal>
+            <div class="reel-media">
+              <video preload="none" poster="assets/reel-01-poster.jpg" playsinline muted loop data-hoverplay aria-label="UGC creator ad — consumer brand">
+                <source src="assets/reel-01.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="reel-meta">
+              <span class="case-title">UGC creator ad — consumer brand</span>
+              <span class="case-chips"><span class="chip">UGC</span><span class="chip">Vertical</span></span>
+            </div>
+          </li>
+          <!-- FOUNDER: more vertical creator/UGC clips drop in here as reel-card items -->
         </ul>
       </div>
 
