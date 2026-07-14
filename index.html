@@ -289,45 +289,88 @@
 
     /* ===== HERO ===== */
     .hero {
-      padding-top: calc(var(--nav-h) + clamp(3.5rem, 9vw, 7rem));
-      padding-bottom: clamp(4rem, 10vw, 8rem);
       position: relative;
       overflow: hidden;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: clamp(2.5rem, 5vw, 4rem);
+      min-height: 92svh;
+      display: flex;
       align-items: center;
+      padding-top: calc(var(--nav-h) + clamp(2rem, 5vw, 4rem));
+      padding-bottom: clamp(3rem, 7vw, 6rem);
     }
 
-    /* framed real-work media, Front Row-style */
-    .hero-media {
-      border-radius: calc(var(--radius) + 6px);
+    .hero-inner { position: relative; z-index: 2; width: 100%; }
+    .hero-copy { max-width: 40rem; }
+
+    /* ===== HERO MEDIA WALL (drifting gallery background) ===== */
+    .hero-wall {
+      position: absolute;
+      inset: -6% -2%;
+      z-index: 0;
+      display: flex;
+      gap: clamp(0.6rem, 1.2vw, 1rem);
+      justify-content: flex-end;
+      opacity: 0.5;
+      pointer-events: none;
+      transform: rotate(-6deg) scale(1.18);
+      transform-origin: center;
+    }
+
+    .wall-col {
+      flex: 0 0 auto;
+      width: clamp(130px, 15vw, 210px);
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
-      border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
-      box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8);
     }
 
-    .hero-media video {
+    .wall-track {
+      display: flex;
+      flex-direction: column;
+      will-change: transform;
+      animation: wall-up var(--wall-dur, 52s) linear infinite;
+    }
+    .wall-col--down .wall-track { animation-name: wall-down; }
+
+    .wall-tile {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      margin-bottom: clamp(0.6rem, 1.2vw, 1rem);
+      border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+    .wall-tile img, .wall-tile video {
       display: block;
       width: 100%;
-      aspect-ratio: 4 / 5;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
-      background: #000;
     }
 
-    @media (min-width: 940px) {
-      .hero-grid {
-        grid-template-columns: 7fr 5fr;
+    @keyframes wall-up   { from { transform: translateY(0); }     to { transform: translateY(-50%); } }
+    @keyframes wall-down { from { transform: translateY(-50%); }  to { transform: translateY(0); } }
+
+    /* scrim keeps the headline crisp: dark on the left (behind text), gallery peeks right */
+    .hero-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(to right, var(--bg) 0%, color-mix(in srgb, var(--bg) 86%, transparent) 34%, color-mix(in srgb, var(--bg) 52%, transparent) 68%, color-mix(in srgb, var(--bg) 34%, transparent) 100%),
+        linear-gradient(to bottom, var(--bg) 0%, transparent 16%, transparent 82%, var(--bg) 100%);
+    }
+
+    @media (max-width: 720px) {
+      .hero-wall { opacity: 0.38; justify-content: center; }
+      .wall-col:nth-child(n+4) { display: none; }
+      .hero-scrim {
+        background:
+          linear-gradient(to bottom, color-mix(in srgb, var(--bg) 78%, transparent) 0%, color-mix(in srgb, var(--bg) 62%, transparent) 45%, var(--bg) 92%),
+          linear-gradient(to right, var(--bg), transparent 40%, transparent 60%, var(--bg));
       }
     }
 
-    @media (max-width: 939px) {
-      .hero-media {
-        max-width: 420px;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      .wall-track { animation: none; }
     }
 
     .hero h1 {
@@ -1633,21 +1676,16 @@
   </nav>
 
   <section id="hero" class="hero">
-    <div class="wrap">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <h1 data-reveal><span class="h1-a">We run your marketing and ecommerce.</span> <span class="h1-b">You run your business.</span></h1>
-          <p class="hero-sub" data-reveal style="--reveal-delay: 120ms">We're operators, not planners — we run our own Amazon and eBay stores every day and have spent years working with million-dollar ecommerce companies. Now we run store ops, listings, content, ads, and email for businesses like yours — as one team, for one flat rate.</p>
-          <div class="hero-cta" data-reveal style="--reveal-delay: 240ms">
-            <a href="#book" class="btn-primary">Book your free audit call</a>
-          </div>
-          <p class="hero-micro" data-reveal style="--reveal-delay: 330ms">15 minutes · free audit either way · no contracts</p>
+    <div class="hero-wall" id="hero-wall" aria-hidden="true"></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <h1 data-reveal><span class="h1-a">We run your marketing and ecommerce.</span> <span class="h1-b">You run your business.</span></h1>
+        <p class="hero-sub" data-reveal style="--reveal-delay: 120ms">We're operators, not planners — we run our own Amazon and eBay stores every day and have spent years working with million-dollar ecommerce companies. Now we run store ops, listings, content, ads, and email for businesses like yours — as one team, for one flat rate.</p>
+        <div class="hero-cta" data-reveal style="--reveal-delay: 240ms">
+          <a href="#book" class="btn-primary">Book your free audit call</a>
         </div>
-        <div class="hero-media" data-reveal style="--reveal-delay: 200ms">
-          <video controls preload="none" poster="assets/baby-lounger-lifestyle-poster.jpg" playsinline aria-label="Product lifestyle spot — ecommerce brand" muted loop>
-            <source src="assets/baby-lounger-lifestyle.mp4" type="video/mp4">
-          </video>
-        </div>
+        <p class="hero-micro" data-reveal style="--reveal-delay: 330ms">15 minutes · free audit either way · no contracts</p>
       </div>
     </div>
   </section>
@@ -2361,6 +2399,75 @@
       }
 
       render();
+    })();
+  </script>
+
+  <script>
+    // ===== HERO MEDIA WALL — drifting gallery of the real work =====
+    (function () {
+      var wall = document.getElementById('hero-wall');
+      if (!wall) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var IMGS = [
+        'reel-01-poster.jpg', 'reel-02-poster.jpg', 'reel-03-poster.jpg',
+        'reel-04-poster.jpg', 'reel-05-poster.jpg', 'case-listing-suite.png',
+        'candy-blast-app-poster.jpg', 'baby-lounger-lifestyle-poster.jpg'
+      ];
+      var VIDS = [
+        { src: 'baby-lounger-lifestyle.mp4', poster: 'baby-lounger-lifestyle-poster.jpg' },
+        { src: 'candy-blast-app.mp4',        poster: 'candy-blast-app-poster.jpg' },
+        { src: 'reel-01.mp4',                poster: 'reel-01-poster.jpg' }
+      ];
+
+      // pool of tile descriptors; videos spliced in so a few tiles play (desktop only)
+      var pool = IMGS.map(function (f) { return { type: 'img', src: 'assets/' + f }; });
+      if (!reduce) {
+        VIDS.forEach(function (v, i) {
+          pool.splice(2 + i * 4, 0, { type: 'video', src: 'assets/' + v.src, poster: 'assets/' + v.poster });
+        });
+      }
+
+      function tileImg(src) {
+        var t = document.createElement('div'); t.className = 'wall-tile';
+        var im = document.createElement('img'); im.src = src; im.alt = ''; im.loading = 'lazy'; im.decoding = 'async';
+        t.appendChild(im); return t;
+      }
+      function tileLive(item) {
+        if (item.type !== 'video') return tileImg(item.src);
+        var t = document.createElement('div'); t.className = 'wall-tile';
+        var v = document.createElement('video');
+        v.src = item.src; v.poster = item.poster;
+        v.muted = true; v.loop = true; v.autoplay = true; v.setAttribute('playsinline', '');
+        v.setAttribute('preload', 'metadata'); v.setAttribute('aria-hidden', 'true');
+        t.appendChild(v);
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+        return t;
+      }
+
+      var COLS = 5;
+      var DIRS = ['up', 'down', 'up', 'down', 'up'];
+      var DURS = ['46s', '61s', '52s', '67s', '49s'];
+      var TILES_PER_COL = 4;
+
+      for (var c = 0; c < COLS; c++) {
+        var col = document.createElement('div');
+        col.className = 'wall-col' + (DIRS[c] === 'down' ? ' wall-col--down' : '');
+        var track = document.createElement('div');
+        track.className = 'wall-track';
+        track.style.setProperty('--wall-dur', DURS[c]);
+
+        var items = [];
+        for (var k = 0; k < TILES_PER_COL; k++) items.push(pool[(c * TILES_PER_COL + k) % pool.length]);
+
+        // first copy: live (videos play); second copy: posters only — keeps the loop
+        // seamless (identical heights) while capping the number of live videos.
+        items.forEach(function (it) { track.appendChild(tileLive(it)); });
+        items.forEach(function (it) { track.appendChild(tileImg(it.type === 'video' ? it.poster : it.src)); });
+
+        col.appendChild(track);
+        wall.appendChild(col);
+      }
     })();
   </script>
 </body>
