@@ -1968,11 +1968,12 @@
     // ===================================================================
     (function () {
       var PRICING = {
-        // Focus is a descriptor only (no price impact) — it tailors positioning.
+        // Focus can floor the plan tier. minTier is an index into platformTiers
+        // (0 Basic · 1 Standard · 2 Premium). "Both" floors at Premium.
         focus: [
-          { id: 'ecom',      label: 'Ecommerce' },
-          { id: 'marketing', label: 'Marketing' },
-          { id: 'both',      label: 'Both' }
+          { id: 'ecom',      label: 'Ecommerce', minTier: 0 },
+          { id: 'marketing', label: 'Marketing', minTier: 0 },
+          { id: 'both',      label: 'Both',      minTier: 2 }
         ],
         // PLATFORM COUNT sets the plan (the base price). First platform included.
         // Picking Amazon + Shopify (2 platforms) lands on Standard = $2,997.
@@ -2002,7 +2003,7 @@
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var fmt = function (n) { return n.toLocaleString('en-US'); };
 
-      var state = { focus: 'both', platforms: {}, addons: {} };
+      var state = { focus: 'ecom', platforms: {}, addons: {} };
       PRICING.platforms.forEach(function (p) { state.platforms[p] = false; });
       PRICING.addons.forEach(function (a) { state.addons[a.id] = false; });
 
@@ -2076,7 +2077,15 @@
         var lines = [];
         var chosen = PRICING.platforms.filter(function (p) { return state.platforms[p]; });
         var count = Math.max(1, chosen.length); // at least Basic (1 platform)
-        var tier = PRICING.platformTiers.filter(function (t) { return count <= t.upTo; })[0];
+
+        // tier index from platform count, then floor by the chosen focus
+        var byCount = 0;
+        for (var i = 0; i < PRICING.platformTiers.length; i++) {
+          if (count <= PRICING.platformTiers[i].upTo) { byCount = i; break; }
+        }
+        var focusObj = PRICING.focus.filter(function (f) { return f.id === state.focus; })[0];
+        var idx = Math.max(byCount, focusObj.minTier || 0);
+        var tier = PRICING.platformTiers[idx];
         var total = tier.price;
 
         var platList = chosen.length ? ' (' + chosen.join(', ') + ')' : ' (1 platform)';
