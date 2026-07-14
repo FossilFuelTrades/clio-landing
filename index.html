@@ -1195,6 +1195,55 @@
     /* radio variant (service focus): single-select */
     .opt--radio .opt-check { border-radius: 999px; }
 
+    /* platform detail cards (what's included + platform-specific add-ons) */
+    .platform-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin-top: 1.1rem;
+    }
+
+    .pdetail {
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--accent) 6%, transparent);
+      padding: clamp(1rem, 2.2vw, 1.35rem);
+    }
+
+    .pdetail-name {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .pdetail-inc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      margin-bottom: 0.9rem;
+    }
+
+    .pdetail-addons-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    /* platform-specific add-on chips: selected state pops clearly yellow */
+    .opt--plat.is-on {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #14161a;
+    }
+    .opt--plat.is-on .opt-check { border-color: #14161a; background: #14161a; }
+    .opt--plat.is-on .opt-check::after { background: var(--accent); }
+    .opt--plat.is-on .opt-price { color: color-mix(in srgb, #14161a 75%, transparent); }
+
     /* summary card */
     .builder-summary {
       align-self: start;
@@ -1807,10 +1856,10 @@
           <p class="tier-price">$1,997<span class="tier-period">/mo</span></p>
           <p class="tier-story">"Run my store right"</p>
           <ul class="tier-bullets">
-            <li>1 marketplace</li>
-            <li>20 SKUs worked</li>
-            <li>listings created, optimized, maintained</li>
-            <li>daily monitoring</li>
+            <li>1 marketplace, 20 SKUs worked</li>
+            <li>listings created, optimized, maintained (titles, bullets, keywords, A+ basics)</li>
+            <li>PPC / paid search managed, flat fee</li>
+            <li>daily monitoring: Buy Box, account health, inventory</li>
             <li>weekly optimization on money products</li>
             <li>weekly report</li>
           </ul>
@@ -1822,11 +1871,11 @@
           <p class="tier-price">$2,997<span class="tier-period">/mo</span></p>
           <p class="tier-story">"Run everything I sell on"</p>
           <ul class="tier-bullets">
-            <li>up to 3 marketplaces (TikTok Shop included as one)</li>
-            <li>75 SKUs</li>
-            <li>catalog-scale listings</li>
-            <li>account health, Buy Box, search-term reports</li>
-            <li>quarterly site CRO</li>
+            <li>up to 3 marketplaces (TikTok Shop included as one), 75 SKUs</li>
+            <li>full catalog management + A+ / enhanced content</li>
+            <li>storefront / brand store built and managed</li>
+            <li>inventory recommendations + review strategy</li>
+            <li>promotions + search-term reports, account health</li>
             <li>weekly report + call</li>
           </ul>
           <a href="#book" class="btn-primary tier-cta">Book a call</a>
@@ -1837,10 +1886,11 @@
           <p class="tier-story">"Run my whole growth engine"</p>
           <ul class="tier-bullets">
             <li>everything in Standard, 150 SKUs</li>
-            <li>paid ads: 2 channels, flat fee</li>
-            <li>social run for you: 16 posts + 4 videos/mo</li>
-            <li>full email automation + 2 campaigns/mo</li>
-            <li>weekly report + call</li>
+            <li>dedicated pod: strategist, creative, ads, analyst</li>
+            <li>paid ads across channels + DSP, flat fee</li>
+            <li>social run for you (16 posts + 4 videos/mo) + full email automation</li>
+            <li>Brand Registry / IP support + forecasting</li>
+            <li>weekly report + strategy call</li>
           </ul>
           <a href="#book" class="btn-primary tier-cta">Book a call</a>
         </li>
@@ -1849,9 +1899,10 @@
           <p class="tier-price">Custom</p>
           <p class="tier-story">"Run my operation"</p>
           <ul class="tier-bullets">
-            <li>4+ platforms or multi-brand</li>
-            <li>no set SKU number</li>
-            <li>custom cadence</li>
+            <li>4+ platforms / multi-brand (Vendor + Seller Central, Walmart, Target+)</li>
+            <li>Retail Media / DSP at scale, international launches</li>
+            <li>in-house photography, video, and design</li>
+            <li>supply-chain + executive reporting</li>
             <li>the free audit produces the quote</li>
           </ul>
           <a href="#book" class="btn-outline tier-cta">Book a call</a>
@@ -1878,7 +1929,8 @@
           <div class="builder-group">
             <span class="builder-group-label">2 · Platforms we run</span>
             <div class="opt-row" id="platform-row"></div>
-            <p style="margin-top:0.85rem;font-size:0.82rem;color:var(--muted);letter-spacing:0.01em;">1 platform = Basic · 2 to 3 = Standard · 4+ = Premium</p>
+            <p style="margin-top:0.85rem;font-size:0.82rem;color:var(--muted);letter-spacing:0.01em;">Click a platform to see what's included and add platform-specific extras. 1 platform = Basic · 2 to 3 = Standard · 4+ = Premium</p>
+            <div id="platform-details" class="platform-details"></div>
           </div>
           <div class="builder-group">
             <span class="builder-group-label">3 · Add to your monthly plan</span>
@@ -1924,15 +1976,6 @@
             <div class="case-meta">
               <span class="case-title">Product lifestyle spot — DTC baby brand</span>
               <span class="case-chips"><span class="chip">Video</span><span class="chip">Paid social</span></span>
-            </div>
-          </li>
-          <li class="case-card" data-reveal>
-            <div class="case-media">
-              <img src="assets/case-listing-suite.png" alt="Amazon listing creative — in-context product image with lifestyle styling" loading="lazy">
-            </div>
-            <div class="case-meta">
-              <span class="case-title">Amazon listing suite — pet care brand</span>
-              <span class="case-chips"><span class="chip">Amazon</span><span class="chip">Listing design</span></span>
             </div>
           </li>
           <li class="case-card" data-reveal>
@@ -2212,13 +2255,52 @@
         // PLATFORM COUNT sets the plan (the base price). First platform included.
         // Picking Amazon + Shopify (2 platforms) lands on Standard = $2,997.
         platforms: ['Amazon', 'Shopify', 'Walmart', 'eBay', 'Etsy', 'TikTok Shop'],
-        platformInfo: {
-          'Amazon':      'Listings, Buy Box, and account health, watched daily.',
-          'Shopify':     'Your storefront built, optimized, and maintained.',
-          'Walmart':     'Walmart Marketplace listings and daily ops.',
-          'eBay':        'eBay listings and store management.',
-          'Etsy':        'Etsy shop, listings, and SEO.',
-          'TikTok Shop': 'TikTok Shop setup and daily operations.'
+        // Per-platform: what's included + platform-specific add-ons (draft prices).
+        platformDetail: {
+          'Amazon': {
+            includes: 'Listings + A+ built the way Amazon ranks them, Buy Box and account-health monitoring, Sponsored Products and Brands managed flat.',
+            addons: [
+              { id: 'amz-store', label: 'Brand Store build',            price: 600, type: 'onetime' },
+              { id: 'amz-dsp',   label: 'Amazon DSP',                   price: 900, type: 'monthly' },
+              { id: 'amz-vine',  label: 'Vine + review strategy',       price: 300, type: 'monthly' }
+            ]
+          },
+          'Shopify': {
+            includes: 'Storefront and product pages optimized, on-site SEO, conversion basics.',
+            addons: [
+              { id: 'shop-email', label: 'Email & SMS flows',           price: 500, type: 'monthly' },
+              { id: 'shop-cro',   label: 'Conversion-rate optimization', price: 600, type: 'monthly' },
+              { id: 'shop-build', label: 'Custom theme build',          price: 900, type: 'onetime' }
+            ]
+          },
+          'Walmart': {
+            includes: 'Listings + rich media, WFS and inventory health, Walmart Sponsored Products managed.',
+            addons: [
+              { id: 'wmt-dsp', label: 'Walmart Connect DSP',           price: 700, type: 'monthly' },
+              { id: 'wmt-wfs', label: 'WFS setup & migration',         price: 600, type: 'onetime' }
+            ]
+          },
+          'eBay': {
+            includes: 'Listings and store management, Promoted Listings managed.',
+            addons: [
+              { id: 'ebay-store', label: 'Store design refresh',        price: 450, type: 'onetime' },
+              { id: 'ebay-bulk',  label: 'Bulk listing migration',      price: 500, type: 'onetime' }
+            ]
+          },
+          'Etsy': {
+            includes: 'Listings and SEO tuned for Etsy search, Etsy Ads managed.',
+            addons: [
+              { id: 'etsy-brand',   label: 'Shop branding kit',         price: 400, type: 'onetime' },
+              { id: 'etsy-digital', label: 'Digital product setup',     price: 350, type: 'onetime' }
+            ]
+          },
+          'TikTok Shop': {
+            includes: 'Shop and catalog setup, Shop Ads managed, daily operations.',
+            addons: [
+              { id: 'tt-creator', label: 'Creator / affiliate program', price: 700, type: 'monthly' },
+              { id: 'tt-live',    label: 'Live shopping setup',         price: 500, type: 'onetime' }
+            ]
+          }
         },
         platformTiers: [
           { upTo: 1,   name: 'Basic',    price: 1997 },
@@ -2248,7 +2330,7 @@
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var fmt = function (n) { return n.toLocaleString('en-US'); };
 
-      var state = { focus: 'ecom', platforms: {}, addons: {} };
+      var state = { focus: 'ecom', platforms: {}, addons: {}, platAddons: {} };
       PRICING.platforms.forEach(function (p) { state.platforms[p] = false; });
       PRICING.addons.forEach(function (a) { state.addons[a.id] = false; });
 
@@ -2291,16 +2373,62 @@
         focusRow.appendChild(c.el);
       });
 
+      var platDetailsEl = document.getElementById('platform-details');
+
       // build platforms (checkbox) — count drives the plan tier, so no per-chip price
       PRICING.platforms.forEach(function (p) {
-        var c = chip('platform', p, p, null, PRICING.platformInfo[p]);
+        var det = PRICING.platformDetail[p] || {};
+        var c = chip('platform', p, p, null, det.includes);
         c.input.addEventListener('change', function () {
           state.platforms[p] = c.input.checked;
           c.el.classList.toggle('is-on', c.input.checked);
+          // deselecting a platform clears its platform-specific add-ons
+          if (!c.input.checked && det.addons) {
+            det.addons.forEach(function (a) { delete state.platAddons[a.id]; });
+          }
+          renderPlatformDetails();
           render();
         });
         platformRow.appendChild(c.el);
       });
+
+      // show a "what's included" card + platform-specific add-ons for each selected platform
+      function renderPlatformDetails() {
+        if (!platDetailsEl) return;
+        platDetailsEl.innerHTML = '';
+        PRICING.platforms.forEach(function (p) {
+          if (!state.platforms[p]) return;
+          var det = PRICING.platformDetail[p];
+          if (!det) return;
+          var card = document.createElement('div');
+          card.className = 'pdetail';
+          var name = document.createElement('p'); name.className = 'pdetail-name'; name.textContent = p;
+          var inc = document.createElement('p'); inc.className = 'pdetail-inc';
+          inc.textContent = 'Included: ' + det.includes;
+          card.appendChild(name); card.appendChild(inc);
+          if (det.addons && det.addons.length) {
+            var lbl = document.createElement('span'); lbl.className = 'pdetail-addons-label';
+            lbl.textContent = p + ' add-ons';
+            card.appendChild(lbl);
+            var row = document.createElement('div'); row.className = 'opt-row';
+            det.addons.forEach(function (a) {
+              var suffix = (a.type === 'onetime') ? ' once' : '/mo';
+              var c2 = chip('platadd', a.id, a.label, '+$' + fmt(a.price) + suffix, null);
+              c2.el.classList.add('opt--plat');
+              if (state.platAddons[a.id]) { c2.input.checked = true; c2.el.classList.add('is-on'); }
+              c2.input.addEventListener('change', function () {
+                if (c2.input.checked) state.platAddons[a.id] = { label: p + ': ' + a.label, price: a.price, type: a.type };
+                else delete state.platAddons[a.id];
+                c2.el.classList.toggle('is-on', c2.input.checked);
+                render();
+              });
+              row.appendChild(c2.el);
+            });
+            card.appendChild(row);
+          }
+          platDetailsEl.appendChild(card);
+        });
+      }
 
       // build add-ons (checkbox) — monthly ones add to the retainer, one-time ones separate
       PRICING.addons.forEach(function (a) {
@@ -2350,6 +2478,13 @@
             total += a.price;
             lines.push({ label: a.label, amount: a.price, per: 'mo' });
           }
+        });
+
+        // platform-specific add-ons
+        Object.keys(state.platAddons).forEach(function (id) {
+          var a = state.platAddons[id];
+          if (a.type === 'onetime') { once += a.price; lines.push({ label: a.label, amount: a.price, per: 'once' }); }
+          else { total += a.price; lines.push({ label: a.label, amount: a.price, per: 'mo' }); }
         });
 
         return { total: total, once: once, lines: lines, tierName: tier.name, chosen: chosen };
@@ -2411,7 +2546,7 @@
 
       var IMGS = [
         'reel-01-poster.jpg', 'reel-02-poster.jpg', 'reel-03-poster.jpg',
-        'reel-04-poster.jpg', 'reel-05-poster.jpg', 'case-listing-suite.png',
+        'reel-04-poster.jpg', 'reel-05-poster.jpg',
         'candy-blast-app-poster.jpg', 'baby-lounger-lifestyle-poster.jpg'
       ];
       var VIDS = [
