@@ -589,8 +589,8 @@
     }
 
     .pain-head {
-      max-width: 42ch;
-      margin-bottom: clamp(2rem, 4.5vw, 3rem);
+      max-width: 54ch;
+      margin-bottom: clamp(2.25rem, 5vw, 3.5rem);
     }
 
     .pain-kicker {
@@ -612,23 +612,73 @@
       color: var(--ink);
     }
 
-    .pain-grid {
-      list-style: none;
+    .pain-sub {
+      margin-top: 1.1rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    .pain-tracks {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 0 2.75rem;
+      gap: 1.25rem;
       margin-bottom: clamp(2.25rem, 5vw, 3.25rem);
+    }
+
+    .pain-track {
+      border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+      border-radius: var(--radius);
+      padding: clamp(1.6rem, 2.8vw, 2.4rem);
+      background: color-mix(in srgb, #ffffff 3%, transparent);
+    }
+
+    .pain-track-head {
+      margin-bottom: 1.1rem;
+    }
+
+    .pain-track-num {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      color: color-mix(in srgb, var(--accent) 60%, transparent);
+      margin-bottom: 0.4rem;
+    }
+
+    .pain-track-label {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(1.35rem, 2vw, 1.7rem);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .pain-track-who {
+      margin-top: 0.35rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+    }
+
+    .pain-list {
+      list-style: none;
     }
 
     .pain-item {
       display: flex;
       align-items: baseline;
       gap: 0.85rem;
-      padding: 0.9rem 0;
+      padding: 0.8rem 0;
       border-bottom: 1px solid color-mix(in srgb, var(--ink) 9%, transparent);
       color: color-mix(in srgb, var(--ink) 88%, transparent);
-      font-size: 1.02rem;
+      font-size: 1rem;
       line-height: 1.5;
+    }
+
+    .pain-list .pain-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .pain-item::before {
@@ -663,7 +713,7 @@
     }
 
     @media (min-width: 720px) {
-      .pain-grid { grid-template-columns: 1fr 1fr; }
+      .pain-tracks { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
 
     /* ===== MATH ===== */
@@ -1891,21 +1941,42 @@
   <section id="pain" class="pain">
     <div class="wrap">
       <div class="pain-head" data-reveal>
-        <span class="pain-kicker">Sound familiar?</span>
-        <h2>Where you're leaking money.</h2>
+        <span class="pain-kicker">Where you're starting from</span>
+        <h2>Wherever you are, there's money on the table.</h2>
+        <p class="pain-sub">Whether you're launching your first online presence or scaling a brand that's already selling — we build it, optimize it, and run it.</p>
       </div>
-      <ul class="pain-grid">
-        <li class="pain-item" data-reveal>Listings that don't rank or convert</li>
-        <li class="pain-item" data-reveal>Ad spend and no idea what's actually working</li>
-        <li class="pain-item" data-reveal>Buy Box lost, account-health flags piling up</li>
-        <li class="pain-item" data-reveal>Stockouts quietly killing your rank</li>
-        <li class="pain-item" data-reveal>A dead email list you never send to</li>
-        <li class="pain-item" data-reveal>Content that fills a feed but doesn't sell</li>
-        <li class="pain-item" data-reveal>One person wearing five hats</li>
-        <li class="pain-item" data-reveal>No weekly view of what actually sold</li>
-      </ul>
+      <div class="pain-tracks">
+        <div class="pain-track" data-reveal>
+          <div class="pain-track-head">
+            <span class="pain-track-num">01</span>
+            <h3 class="pain-track-label">Launching or rebuilding</h3>
+            <p class="pain-track-who">Never sold online, or need a full revamp</p>
+          </div>
+          <ul class="pain-list">
+            <li class="pain-item">No Amazon or marketplace presence while competitors own your category</li>
+            <li class="pain-item">A website that doesn't sell — or no online store at all</li>
+            <li class="pain-item">A product people want, with no engine to put it in front of them</li>
+            <li class="pain-item">Invisible online: no ads, no content, no email</li>
+            <li class="pain-item">You know you need to sell online, but have no time or team to build it</li>
+          </ul>
+        </div>
+        <div class="pain-track" data-reveal>
+          <div class="pain-track-head">
+            <span class="pain-track-num">02</span>
+            <h3 class="pain-track-label">Already selling</h3>
+            <p class="pain-track-who">An established brand that wants a pro team to run it</p>
+          </div>
+          <ul class="pain-list">
+            <li class="pain-item">Listings that don't rank or convert the traffic you pay for</li>
+            <li class="pain-item">Ad spend going out with no clear return</li>
+            <li class="pain-item">Buy Box slipping and account-health flags piling up</li>
+            <li class="pain-item">Stockouts quietly killing your hard-won rank</li>
+            <li class="pain-item">A patchwork of freelancers and no one owning the whole picture</li>
+          </ul>
+        </div>
+      </div>
       <div class="pain-cta" data-reveal>
-        <p>We fix all of it — and the <em>free audit</em> shows you where.</p>
+        <p>Wherever you're starting from, we build the operation and run it — the <em>free audit</em> shows you exactly where the money is.</p>
         <a href="#book" class="btn-primary">Book your free audit call</a>
       </div>
     </div>
