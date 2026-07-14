@@ -1128,6 +1128,15 @@
       font-family: var(--font-sans);
     }
 
+    .summary-once {
+      margin-top: 0.55rem;
+      font-size: 0.98rem;
+      color: var(--accent);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .summary-once[hidden] { display: none; }
+
     .summary-lines {
       list-style: none;
       margin: 1.4rem 0;
@@ -1712,8 +1721,12 @@
             <p style="margin-top:0.85rem;font-size:0.82rem;color:var(--muted);letter-spacing:0.01em;">1 platform = Basic · 2 to 3 = Standard · 4+ = Premium</p>
           </div>
           <div class="builder-group">
-            <span class="builder-group-label">3 · Add what you need</span>
-            <div class="opt-row" id="addon-row"></div>
+            <span class="builder-group-label">3 · Add to your monthly plan</span>
+            <div class="opt-row" id="addon-monthly-row"></div>
+          </div>
+          <div class="builder-group">
+            <span class="builder-group-label">4 · One-time setup <span style="color:var(--muted);font-weight:400;letter-spacing:0;text-transform:none;">(optional)</span></span>
+            <div class="opt-row" id="addon-onetime-row"></div>
           </div>
         </div>
 
@@ -1721,6 +1734,7 @@
           <span class="summary-label">Your plan · <span id="plan-name">Basic</span></span>
           <p class="summary-price"><span aria-hidden="true">$</span><span id="price-value">0</span></p>
           <span class="summary-per">per month, flat</span>
+          <p class="summary-once" id="summary-once" hidden>+ $<span id="once-value">0</span> one-time setup</p>
           <ul class="summary-lines" id="summary-lines">
             <li class="summary-empty">Start selecting to build your price.</li>
           </ul>
@@ -1983,22 +1997,25 @@
           { upTo: 3,   name: 'Standard', price: 2997 },
           { upTo: 999, name: 'Premium',  price: 4997 }
         ],
-        // Add-ons stack on top of the plan base.
+        // Add-ons. type 'monthly' adds to the retainer; type 'onetime' is a
+        // one-off setup fee shown separately.
         addons: [
-          { id: 'ads',     label: 'Paid ads (2 channels, flat)',        price: 1200 },
-          { id: 'social',  label: 'Social content (16 posts + 4 videos)', price: 700 },
-          { id: 'email',   label: 'Email & retention',                  price: 500 },
-          { id: 'sku',     label: 'Extra SKU block (+25)',              price: 450 },
-          { id: 'channel', label: 'Extra ad channel',                   price: 700 },
-          { id: 'brand',   label: 'Brand & creative kit',               price: 500 }
+          { id: 'ads',     label: 'Paid ads (2 channels, flat)',        price: 1200, type: 'monthly' },
+          { id: 'social',  label: 'Social content (16 posts + 4 videos)', price: 700, type: 'monthly' },
+          { id: 'email',   label: 'Email & retention',                  price: 500,  type: 'monthly' },
+          { id: 'sku',     label: 'Extra SKU block (+25)',              price: 450,  type: 'monthly' },
+          { id: 'channel', label: 'Extra ad channel',                   price: 700,  type: 'monthly' },
+          { id: 'brand',   label: 'Brand & creative kit',               price: 500,  type: 'onetime' },
+          { id: 'website', label: 'Website build (up to 5 pages)',      price: 900,  type: 'onetime' }
         ]
       };
       // ===================================================================
 
       var focusRow = document.getElementById('focus-row');
       var platformRow = document.getElementById('platform-row');
-      var addonRow = document.getElementById('addon-row');
-      if (!focusRow || !platformRow || !addonRow) return;
+      var addonMonthlyRow = document.getElementById('addon-monthly-row');
+      var addonOnetimeRow = document.getElementById('addon-onetime-row');
+      if (!focusRow || !platformRow || !addonMonthlyRow || !addonOnetimeRow) return;
 
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var fmt = function (n) { return n.toLocaleString('en-US'); };
@@ -2056,21 +2073,24 @@
         platformRow.appendChild(c.el);
       });
 
-      // build add-ons (checkbox)
+      // build add-ons (checkbox) — monthly ones add to the retainer, one-time ones separate
       PRICING.addons.forEach(function (a) {
-        var c = chip('addon', a.id, a.label, '+$' + fmt(a.price));
+        var suffix = (a.type === 'onetime') ? ' once' : '/mo';
+        var c = chip('addon', a.id, a.label, '+$' + fmt(a.price) + suffix);
         c.input.addEventListener('change', function () {
           state.addons[a.id] = c.input.checked;
           c.el.classList.toggle('is-on', c.input.checked);
           render();
         });
-        addonRow.appendChild(c.el);
+        (a.type === 'onetime' ? addonOnetimeRow : addonMonthlyRow).appendChild(c.el);
       });
 
       var priceEl = document.getElementById('price-value');
       var linesEl = document.getElementById('summary-lines');
       var ctaEl = document.getElementById('builder-cta');
       var planNameEl = document.getElementById('plan-name');
+      var onceWrap = document.getElementById('summary-once');
+      var onceEl = document.getElementById('once-value');
       var shownPrice = 0;
 
       function compute() {
@@ -2089,13 +2109,21 @@
         var total = tier.price;
 
         var platList = chosen.length ? ' (' + chosen.join(', ') + ')' : ' (1 platform)';
-        lines.push({ label: tier.name + ' plan' + platList, amount: tier.price });
+        lines.push({ label: tier.name + ' plan' + platList, amount: tier.price, per: 'mo' });
 
+        var once = 0;
         PRICING.addons.forEach(function (a) {
-          if (state.addons[a.id]) { total += a.price; lines.push({ label: a.label, amount: a.price }); }
+          if (!state.addons[a.id]) return;
+          if (a.type === 'onetime') {
+            once += a.price;
+            lines.push({ label: a.label, amount: a.price, per: 'once' });
+          } else {
+            total += a.price;
+            lines.push({ label: a.label, amount: a.price, per: 'mo' });
+          }
         });
 
-        return { total: total, lines: lines, tierName: tier.name, chosen: chosen };
+        return { total: total, once: once, lines: lines, tierName: tier.name, chosen: chosen };
       }
 
       function tween(to) {
@@ -2116,24 +2144,29 @@
         var r = compute();
         tween(r.total);
         if (planNameEl) planNameEl.textContent = r.tierName;
+        if (onceWrap && onceEl) {
+          if (r.once > 0) { onceEl.textContent = fmt(r.once); onceWrap.hidden = false; }
+          else { onceWrap.hidden = true; }
+        }
         linesEl.innerHTML = '';
         r.lines.forEach(function (ln) {
           var li = document.createElement('li');
           var a = document.createElement('span'); a.textContent = ln.label;
           var b = document.createElement('span');
-          b.textContent = ln.note ? ln.note : ('$' + fmt(ln.amount) + '/mo');
+          b.textContent = '$' + fmt(ln.amount) + (ln.per === 'once' ? ' once' : '/mo');
           li.appendChild(a); li.appendChild(b);
           linesEl.appendChild(li);
         });
 
         // build a mailto so the lead's exact plan reaches Christian
         var summaryText = r.lines.map(function (ln) {
-          return '- ' + ln.label + ': ' + (ln.note || '$' + fmt(ln.amount) + '/mo');
+          return '- ' + ln.label + ': $' + fmt(ln.amount) + (ln.per === 'once' ? ' one-time' : '/mo');
         }).join('\n');
-        var body = 'Here is the plan I built:\n\n' + summaryText + '\n\nEstimated total: $' + fmt(r.total) + '/mo\n\nI would like to book the free audit call.';
+        var totalsLine = 'Monthly total: $' + fmt(r.total) + '/mo' + (r.once > 0 ? '\nOne-time setup: $' + fmt(r.once) : '');
+        var body = 'Here is the plan I built:\n\n' + summaryText + '\n\n' + totalsLine + '\n\nI would like to book the free audit call.';
+        var subj = 'My custom plan — $' + fmt(r.total) + '/mo' + (r.once > 0 ? ' + $' + fmt(r.once) + ' setup' : '');
         ctaEl.setAttribute('href', 'mailto:christian@cliocreativeconcepts.com?subject=' +
-          encodeURIComponent('My custom plan — $' + fmt(r.total) + '/mo') +
-          '&body=' + encodeURIComponent(body));
+          encodeURIComponent(subj) + '&body=' + encodeURIComponent(body));
       }
 
       render();
