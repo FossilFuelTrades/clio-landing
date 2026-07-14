@@ -1042,6 +1042,64 @@
     .opt:hover { border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
     .opt:active { transform: translateY(1px); }
 
+    /* hover tooltip: short description of the option */
+    .opt[data-tip]::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      width: max-content;
+      max-width: 230px;
+      padding: 0.6rem 0.8rem;
+      border-radius: 10px;
+      background: color-mix(in srgb, #ffffff 9%, var(--bg));
+      border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+      box-shadow: 0 16px 34px -20px rgba(0, 0, 0, 0.9);
+      color: var(--ink);
+      font-size: 0.82rem;
+      line-height: 1.4;
+      font-weight: 400;
+      white-space: normal;
+      text-align: left;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+      transition: opacity 0.16s var(--ease-out), transform 0.16s var(--ease-out);
+    }
+
+    .opt[data-tip]::before {
+      content: "";
+      position: absolute;
+      bottom: calc(100% + 5px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px) rotate(45deg);
+      width: 9px;
+      height: 9px;
+      background: color-mix(in srgb, #ffffff 9%, var(--bg));
+      border-right: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+      transition: opacity 0.16s var(--ease-out), transform 0.16s var(--ease-out);
+    }
+
+    .opt[data-tip]:hover::after,
+    .opt[data-tip]:focus-within::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .opt[data-tip]:hover::before,
+    .opt[data-tip]:focus-within::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) rotate(45deg);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .opt[data-tip]::after, .opt[data-tip]::before { transition: none; }
+    }
+
     .opt input {
       position: absolute;
       opacity: 0;
@@ -1985,13 +2043,21 @@
         // Focus can floor the plan tier. minTier is an index into platformTiers
         // (0 Basic · 1 Standard · 2 Premium). "Both" floors at Premium.
         focus: [
-          { id: 'ecom',      label: 'Ecommerce', minTier: 0 },
-          { id: 'marketing', label: 'Marketing', minTier: 0 },
-          { id: 'both',      label: 'Both',      minTier: 2 }
+          { id: 'ecom',      label: 'Ecommerce', minTier: 0, desc: 'We run your stores and marketplaces end to end.' },
+          { id: 'marketing', label: 'Marketing', minTier: 0, desc: 'We run your content, ads, and email.' },
+          { id: 'both',      label: 'Both',      minTier: 2, desc: 'The full growth engine, ecommerce and marketing.' }
         ],
         // PLATFORM COUNT sets the plan (the base price). First platform included.
         // Picking Amazon + Shopify (2 platforms) lands on Standard = $2,997.
         platforms: ['Amazon', 'Shopify', 'Walmart', 'eBay', 'Etsy', 'TikTok Shop'],
+        platformInfo: {
+          'Amazon':      'Listings, Buy Box, and account health, watched daily.',
+          'Shopify':     'Your storefront built, optimized, and maintained.',
+          'Walmart':     'Walmart Marketplace listings and daily ops.',
+          'eBay':        'eBay listings and store management.',
+          'Etsy':        'Etsy shop, listings, and SEO.',
+          'TikTok Shop': 'TikTok Shop setup and daily operations.'
+        },
         platformTiers: [
           { upTo: 1,   name: 'Basic',    price: 1997 },
           { upTo: 3,   name: 'Standard', price: 2997 },
@@ -2000,13 +2066,13 @@
         // Add-ons. type 'monthly' adds to the retainer; type 'onetime' is a
         // one-off setup fee shown separately.
         addons: [
-          { id: 'ads',     label: 'Paid ads (2 channels, flat)',        price: 1200, type: 'monthly' },
-          { id: 'social',  label: 'Social content (16 posts + 4 videos)', price: 700, type: 'monthly' },
-          { id: 'email',   label: 'Email & retention',                  price: 500,  type: 'monthly' },
-          { id: 'sku',     label: 'Extra SKU block (+25)',              price: 450,  type: 'monthly' },
-          { id: 'channel', label: 'Extra ad channel',                   price: 700,  type: 'monthly' },
-          { id: 'brand',   label: 'Brand & creative kit',               price: 500,  type: 'onetime' },
-          { id: 'website', label: 'Website build (up to 5 pages)',      price: 900,  type: 'onetime' }
+          { id: 'ads',     label: 'Paid ads (2 channels, flat)',        price: 1200, type: 'monthly', desc: 'Two ad channels managed, flat fee, never a % of spend.' },
+          { id: 'social',  label: 'Social content (16 posts + 4 videos)', price: 700, type: 'monthly', desc: '16 posts and 4 videos a month, made and scheduled.' },
+          { id: 'email',   label: 'Email & retention',                  price: 500,  type: 'monthly', desc: 'Automations and campaigns that bring buyers back.' },
+          { id: 'sku',     label: 'Extra SKU block (+25)',              price: 450,  type: 'monthly', desc: '25 more products actively worked and optimized.' },
+          { id: 'channel', label: 'Extra ad channel',                   price: 700,  type: 'monthly', desc: 'One more paid channel added to the mix.' },
+          { id: 'brand',   label: 'Brand & creative kit',               price: 500,  type: 'onetime', desc: 'Logo, colors, and templates, built once.' },
+          { id: 'website', label: 'Website build (up to 5 pages)',      price: 900,  type: 'onetime', desc: 'A conversion-focused site, up to 5 pages, built once.' }
         ]
       };
       // ===================================================================
@@ -2024,11 +2090,12 @@
       PRICING.platforms.forEach(function (p) { state.platforms[p] = false; });
       PRICING.addons.forEach(function (a) { state.addons[a.id] = false; });
 
-      function chip(kind, id, label, priceText) {
+      function chip(kind, id, label, priceText, desc) {
         var l = document.createElement('label');
         l.className = 'opt' + (kind === 'focus' ? ' opt--radio' : '');
         l.setAttribute('data-kind', kind);
         l.setAttribute('data-id', id);
+        if (desc) l.setAttribute('data-tip', desc);
         var input = document.createElement('input');
         input.type = (kind === 'focus') ? 'radio' : 'checkbox';
         input.name = (kind === 'focus') ? 'builder-focus' : (kind + '-' + id);
@@ -2051,7 +2118,7 @@
 
       // build focus (radio) — descriptor, no price label
       PRICING.focus.forEach(function (f) {
-        var c = chip('focus', f.id, f.label, null);
+        var c = chip('focus', f.id, f.label, null, f.desc);
         if (f.id === state.focus) { c.input.checked = true; c.el.classList.add('is-on'); }
         c.input.addEventListener('change', function () {
           state.focus = f.id;
@@ -2064,7 +2131,7 @@
 
       // build platforms (checkbox) — count drives the plan tier, so no per-chip price
       PRICING.platforms.forEach(function (p) {
-        var c = chip('platform', p, p, null);
+        var c = chip('platform', p, p, null, PRICING.platformInfo[p]);
         c.input.addEventListener('change', function () {
           state.platforms[p] = c.input.checked;
           c.el.classList.toggle('is-on', c.input.checked);
@@ -2076,7 +2143,7 @@
       // build add-ons (checkbox) — monthly ones add to the retainer, one-time ones separate
       PRICING.addons.forEach(function (a) {
         var suffix = (a.type === 'onetime') ? ' once' : '/mo';
-        var c = chip('addon', a.id, a.label, '+$' + fmt(a.price) + suffix);
+        var c = chip('addon', a.id, a.label, '+$' + fmt(a.price) + suffix, a.desc);
         c.input.addEventListener('change', function () {
           state.addons[a.id] = c.input.checked;
           c.el.classList.toggle('is-on', c.input.checked);
