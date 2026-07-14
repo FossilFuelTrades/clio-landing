@@ -1653,7 +1653,7 @@
           <p class="tier-price">$2,997<span class="tier-period">/mo</span></p>
           <p class="tier-story">"Run everything I sell on"</p>
           <ul class="tier-bullets">
-            <li>up to 3 marketplaces + TikTok Shop</li>
+            <li>up to 3 marketplaces (TikTok Shop included as one)</li>
             <li>75 SKUs</li>
             <li>catalog-scale listings</li>
             <li>account health, Buy Box, search-term reports</li>
@@ -1709,6 +1709,7 @@
           <div class="builder-group">
             <span class="builder-group-label">2 · Platforms we run</span>
             <div class="opt-row" id="platform-row"></div>
+            <p style="margin-top:0.85rem;font-size:0.82rem;color:var(--muted);letter-spacing:0.01em;">1 platform = Basic · 2 to 3 = Standard · 4+ = Premium</p>
           </div>
           <div class="builder-group">
             <span class="builder-group-label">3 · Add what you need</span>
@@ -1717,7 +1718,7 @@
         </div>
 
         <aside class="builder-summary" data-reveal style="--reveal-delay: 120ms" aria-live="polite">
-          <span class="summary-label">Your plan</span>
+          <span class="summary-label">Your plan · <span id="plan-name">Basic</span></span>
           <p class="summary-price"><span aria-hidden="true">$</span><span id="price-value">0</span></p>
           <span class="summary-per">per month, flat</span>
           <ul class="summary-lines" id="summary-lines">
@@ -1967,15 +1968,21 @@
     // ===================================================================
     (function () {
       var PRICING = {
-        // Service focus sets the base fee (includes core ops + first platform).
+        // Focus is a descriptor only (no price impact) — it tailors positioning.
         focus: [
-          { id: 'ecom',      label: 'Ecommerce',        base: 1497 },
-          { id: 'marketing', label: 'Marketing',        base: 1497 },
-          { id: 'both',      label: 'Both',             base: 1997 }
+          { id: 'ecom',      label: 'Ecommerce' },
+          { id: 'marketing', label: 'Marketing' },
+          { id: 'both',      label: 'Both' }
         ],
-        platformsIncluded: 1,      // first platform is included in the base
-        platformEach: 400,         // each additional platform
+        // PLATFORM COUNT sets the plan (the base price). First platform included.
+        // Picking Amazon + Shopify (2 platforms) lands on Standard = $2,997.
         platforms: ['Amazon', 'Shopify', 'Walmart', 'eBay', 'Etsy', 'TikTok Shop'],
+        platformTiers: [
+          { upTo: 1,   name: 'Basic',    price: 1997 },
+          { upTo: 3,   name: 'Standard', price: 2997 },
+          { upTo: 999, name: 'Premium',  price: 4997 }
+        ],
+        // Add-ons stack on top of the plan base.
         addons: [
           { id: 'ads',     label: 'Paid ads (2 channels, flat)',        price: 1200 },
           { id: 'social',  label: 'Social content (16 posts + 4 videos)', price: 700 },
@@ -2024,9 +2031,9 @@
         return { el: l, input: input };
       }
 
-      // build focus (radio)
+      // build focus (radio) — descriptor, no price label
       PRICING.focus.forEach(function (f) {
-        var c = chip('focus', f.id, f.label, '$' + fmt(f.base) + '/mo');
+        var c = chip('focus', f.id, f.label, null);
         if (f.id === state.focus) { c.input.checked = true; c.el.classList.add('is-on'); }
         c.input.addEventListener('change', function () {
           state.focus = f.id;
@@ -2037,10 +2044,9 @@
         focusRow.appendChild(c.el);
       });
 
-      // build platforms (checkbox)
-      PRICING.platforms.forEach(function (p, i) {
-        var priceText = (i < PRICING.platformsIncluded) ? 'included' : '+$' + fmt(PRICING.platformEach);
-        var c = chip('platform', p, p, priceText);
+      // build platforms (checkbox) — count drives the plan tier, so no per-chip price
+      PRICING.platforms.forEach(function (p) {
+        var c = chip('platform', p, p, null);
         c.input.addEventListener('change', function () {
           state.platforms[p] = c.input.checked;
           c.el.classList.toggle('is-on', c.input.checked);
@@ -2063,31 +2069,24 @@
       var priceEl = document.getElementById('price-value');
       var linesEl = document.getElementById('summary-lines');
       var ctaEl = document.getElementById('builder-cta');
+      var planNameEl = document.getElementById('plan-name');
       var shownPrice = 0;
 
       function compute() {
         var lines = [];
-        var focus = PRICING.focus.filter(function (f) { return f.id === state.focus; })[0];
-        var total = focus.base;
-        lines.push({ label: focus.label + ' base', amount: focus.base });
-
         var chosen = PRICING.platforms.filter(function (p) { return state.platforms[p]; });
-        var extra = Math.max(0, chosen.length - PRICING.platformsIncluded);
-        if (chosen.length) {
-          var platAmount = extra * PRICING.platformEach;
-          total += platAmount;
-          lines.push({
-            label: chosen.length + ' platform' + (chosen.length > 1 ? 's' : '') + ' (' + chosen.join(', ') + ')',
-            amount: platAmount,
-            note: extra === 0 ? 'included' : null
-          });
-        }
+        var count = Math.max(1, chosen.length); // at least Basic (1 platform)
+        var tier = PRICING.platformTiers.filter(function (t) { return count <= t.upTo; })[0];
+        var total = tier.price;
+
+        var platList = chosen.length ? ' (' + chosen.join(', ') + ')' : ' (1 platform)';
+        lines.push({ label: tier.name + ' plan' + platList, amount: tier.price });
 
         PRICING.addons.forEach(function (a) {
           if (state.addons[a.id]) { total += a.price; lines.push({ label: a.label, amount: a.price }); }
         });
 
-        return { total: total, lines: lines, chosen: chosen };
+        return { total: total, lines: lines, tierName: tier.name, chosen: chosen };
       }
 
       function tween(to) {
@@ -2107,6 +2106,7 @@
       function render() {
         var r = compute();
         tween(r.total);
+        if (planNameEl) planNameEl.textContent = r.tierName;
         linesEl.innerHTML = '';
         r.lines.forEach(function (ln) {
           var li = document.createElement('li');
