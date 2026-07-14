@@ -957,6 +957,123 @@
       }
     }
 
+    /* pricing toggle + one-time launch lane */
+    .pricing-toggle {
+      display: inline-flex;
+      gap: 0.35rem;
+      padding: 0.35rem;
+      border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+      border-radius: 999px;
+      margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+    }
+
+    .ptoggle {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.6rem 1.15rem;
+      border-radius: 999px;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .ptoggle span { font-weight: 400; opacity: 0.7; }
+    .ptoggle:hover { color: var(--ink); }
+    .ptoggle.is-active { background: var(--accent); color: #1a1205; }
+    .ptoggle.is-active span { opacity: 0.6; }
+
+    /* hidden must beat the grid's display:grid */
+    .tier-grid[hidden] { display: none; }
+
+    .tier-plat + .tier-plat { margin-top: 0.9rem; }
+
+    .tier-plat-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .tier--standard .tier-plat-label { color: var(--navy); }
+
+    .tier-plat .tier-bullets { margin-bottom: 0; flex-grow: 0; }
+
+    .tier-bullets--always {
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+      flex-grow: 1;
+    }
+
+    .tier--standard .tier-bullets--always {
+      border-top-color: color-mix(in srgb, var(--dark-ink) 15%, transparent);
+    }
+
+    .tier-note {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: color-mix(in srgb, var(--ink) 55%, transparent);
+      margin-bottom: 1.1rem;
+    }
+
+    .tier--standard .tier-note {
+      color: color-mix(in srgb, var(--dark-ink) 55%, transparent);
+    }
+
+    @media (min-width: 940px) {
+      .tier-grid--launch { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* services capability index */
+    .cap-index {
+      margin-top: clamp(2.5rem, 6vw, 4rem);
+      padding-top: clamp(2rem, 4vw, 3rem);
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    .cap-index-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(1.3rem, 1.6vw + 0.8rem, 1.7rem);
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .cap-groups {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem 2.5rem;
+    }
+
+    .cap-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+    }
+
+    .cap-group ul { list-style: none; }
+
+    .cap-group li {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--muted);
+    }
+
+    @media (min-width: 560px) { .cap-groups { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 940px) { .cap-groups { grid-template-columns: repeat(4, 1fr); } }
+
     /* ===== PROOF ===== */
     .proof {
       padding: clamp(3.5rem, 9vw, 7rem) 0;
@@ -1907,12 +2024,12 @@
         <li class="tile" data-reveal>
           <span class="tile-rule"></span>
           <h3 class="tile-title">Store &amp; marketplace ops</h3>
-          <p class="tile-text">Daily monitoring, account health, Buy Box, inventory signals — the unglamorous work that protects your rank.</p>
+          <p class="tile-text">Daily monitoring, account health, Buy Box, inventory signals and FBA replenishment — the unglamorous work that protects your rank.</p>
         </li>
         <li class="tile" data-reveal>
           <span class="tile-rule"></span>
           <h3 class="tile-title">Listings &amp; SEO</h3>
-          <p class="tile-text">Created, optimized, and maintained: titles, bullets, backend keywords, A+ content — built the way marketplaces rank them.</p>
+          <p class="tile-text">Created, optimized, and maintained: titles, bullets, backend keywords, A+ / Enhanced Brand Content and Brand Store — built the way marketplaces rank them.</p>
         </li>
         <li class="tile" data-reveal>
           <span class="tile-rule"></span>
@@ -1935,6 +2052,54 @@
           <p class="tile-text">Every week: what sold, what changed, what we're doing next — in plain English. This is what you judge us on.</p>
         </li>
       </ul>
+      <div class="cap-index" data-reveal>
+        <h3 class="cap-index-title">Everything we handle, under one roof.</h3>
+        <div class="cap-groups">
+          <div class="cap-group">
+            <span class="cap-label">Amazon growth</span>
+            <ul>
+              <li>A+ / Enhanced Brand Content</li>
+              <li>Brand Store build</li>
+              <li>Brand Registry &amp; IP</li>
+              <li>Amazon SEO</li>
+              <li>Reviews / Vine program</li>
+              <li>DSP / programmatic</li>
+              <li>FBA setup &amp; replenishment</li>
+              <li>Catalog &amp; variations</li>
+            </ul>
+          </div>
+          <div class="cap-group">
+            <span class="cap-label">Creative production</span>
+            <ul>
+              <li>Product photography</li>
+              <li>Lifestyle imagery</li>
+              <li>Video / UGC</li>
+              <li>Infographic image stacks</li>
+              <li>Brand kit &amp; identity</li>
+            </ul>
+          </div>
+          <div class="cap-group">
+            <span class="cap-label">Channels</span>
+            <ul>
+              <li>Amazon</li>
+              <li>Shopify / DTC</li>
+              <li>Walmart</li>
+              <li>TikTok Shop</li>
+              <li>eBay / Etsy</li>
+              <li>Cross-listing &amp; sync</li>
+            </ul>
+          </div>
+          <div class="cap-group">
+            <span class="cap-label">Run &amp; retain</span>
+            <ul>
+              <li>Paid campaigns</li>
+              <li>Email &amp; flows</li>
+              <li>Content &amp; social</li>
+              <li>Weekly reporting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -2004,10 +2169,14 @@
   <section id="pricing" class="pricing">
     <div class="wrap">
       <div class="pricing-head" data-reveal>
-        <h2>One service. Four sizes.</h2>
-        <p class="pricing-sub">Founding rates — early clients keep their rate as prices step up.</p>
+        <h2 id="pricing-title">One service. Four sizes.</h2>
+        <p class="pricing-sub" id="pricing-sub">Founding rates — early clients keep their rate as prices step up.</p>
       </div>
-      <ul class="tier-grid">
+      <div class="pricing-toggle" role="group" aria-label="How you want to work with us" data-reveal>
+        <button type="button" class="ptoggle is-active" data-mode="monthly" aria-pressed="true">Run it for me <span>· monthly</span></button>
+        <button type="button" class="ptoggle" data-mode="launch" aria-pressed="false">Set me up once <span>· one-time</span></button>
+      </div>
+      <ul class="tier-grid" id="grid-monthly">
         <li class="tier" data-reveal>
           <h3 class="tier-name">Basic</h3>
           <p class="tier-price">$1,997<span class="tier-period">/mo</span></p>
@@ -2065,7 +2234,93 @@
           <a href="#book" class="btn-outline tier-cta">Book a call</a>
         </li>
       </ul>
-      <p class="pricing-footer">Setup fee $500 — waived for same-day signing. Not a perfect fit? <a href="#builder" style="color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:0.15em;">Build a custom plan</a>.</p>
+      <p class="pricing-footer" id="footer-monthly">Setup fee $500 — waived for same-day signing. Not a perfect fit? <a href="#builder" style="color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:0.15em;">Build a custom plan</a>.</p>
+
+      <ul class="tier-grid tier-grid--launch" id="grid-launch" hidden>
+        <li class="tier" data-reveal>
+          <h3 class="tier-name">Starter</h3>
+          <p class="tier-price">from $1,500<span class="tier-period"> one-time</span></p>
+          <p class="tier-story">"Get me live"</p>
+          <div class="tier-plat">
+            <span class="tier-plat-label">Amazon</span>
+            <ul class="tier-bullets">
+              <li>Seller Central + Brand Registry setup</li>
+              <li>up to 10 listings created &amp; uploaded, keyword SEO</li>
+              <li>FBA / FBM first-shipment setup</li>
+            </ul>
+          </div>
+          <div class="tier-plat">
+            <span class="tier-plat-label">Shopify</span>
+            <ul class="tier-bullets">
+              <li>store built on a premium theme</li>
+              <li>up to 10 products, core pages</li>
+              <li>payments + shipping configured</li>
+            </ul>
+          </div>
+          <ul class="tier-bullets tier-bullets--always">
+            <li>1 training session + Starter playbook</li>
+            <li>30-day support</li>
+          </ul>
+          <p class="tier-note">One platform included · add the second as a flat add-on · setup credits toward monthly.</p>
+          <a href="#book" class="btn-primary tier-cta">Book a call</a>
+        </li>
+        <li class="tier tier--standard" data-reveal style="--reveal-delay: 100ms">
+          <span class="tier-tag">Most popular</span>
+          <h3 class="tier-name">Standard</h3>
+          <p class="tier-price">from $3,900<span class="tier-period"> one-time</span></p>
+          <p class="tier-story">"Launch me right"</p>
+          <div class="tier-plat">
+            <span class="tier-plat-label">Amazon</span>
+            <ul class="tier-bullets">
+              <li>up to 25 listings, A+ content, Brand Store</li>
+              <li>full SEO + competitor keyword mapping</li>
+              <li>Reviews / Vine program setup</li>
+            </ul>
+          </div>
+          <div class="tier-plat">
+            <span class="tier-plat-label">Shopify</span>
+            <ul class="tier-bullets">
+              <li>full store (15+ pages / collections), 25 products</li>
+              <li>email capture + welcome flow</li>
+              <li>review &amp; upsell apps configured</li>
+            </ul>
+          </div>
+          <ul class="tier-bullets tier-bullets--always">
+            <li>2 training sessions + full SOP playbooks (Loom)</li>
+            <li>45-day support</li>
+          </ul>
+          <p class="tier-note">One platform included · add the second as a flat add-on · setup credits toward monthly.</p>
+          <a href="#book" class="btn-primary tier-cta">Book a call</a>
+        </li>
+        <li class="tier" data-reveal>
+          <h3 class="tier-name">Premium</h3>
+          <p class="tier-price">from $6,900<span class="tier-period"> one-time</span></p>
+          <p class="tier-story">"Launch me loaded"</p>
+          <div class="tier-plat">
+            <span class="tier-plat-label">Amazon</span>
+            <ul class="tier-bullets">
+              <li>up to 50 / full catalog, photography + video</li>
+              <li>PPC campaigns built &amp; launched, handed off</li>
+              <li>DSP / advanced setup where eligible</li>
+            </ul>
+          </div>
+          <div class="tier-plat">
+            <span class="tier-plat-label">Shopify</span>
+            <ul class="tier-bullets">
+              <li>full DTC build + product photography</li>
+              <li>paid + email launched, analytics wired</li>
+              <li>multi-marketplace prep (Walmart / TikTok ready)</li>
+            </ul>
+          </div>
+          <ul class="tier-bullets tier-bullets--always">
+            <li>3–4 training sessions + advanced playbooks</li>
+            <li>60-day support</li>
+          </ul>
+          <p class="tier-note">One platform included · add the second as a flat add-on · setup credits toward monthly.</p>
+          <a href="#book" class="btn-primary tier-cta">Book a call</a>
+        </li>
+      </ul>
+      <p class="pricing-footer" id="footer-launch" hidden>Launch prices are indicative — your free audit sets the final quote. Want us to keep running it after? <a href="#" class="switch-to-monthly" style="color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:0.15em;">See monthly management</a>.</p>
     </div>
   </section>
 
@@ -2419,6 +2674,48 @@
           });
         }
       }
+    })();
+  </script>
+
+  <script>
+    // pricing lane toggle: monthly retainer  <->  one-time launch
+    (function () {
+      var toggles = document.querySelectorAll('.ptoggle');
+      if (!toggles.length) return;
+      var gridM = document.getElementById('grid-monthly');
+      var gridL = document.getElementById('grid-launch');
+      var footM = document.getElementById('footer-monthly');
+      var footL = document.getElementById('footer-launch');
+      var title = document.getElementById('pricing-title');
+      var sub = document.getElementById('pricing-sub');
+      var COPY = {
+        monthly: { title: 'One service. Four sizes.', sub: 'Founding rates — early clients keep their rate as prices step up.' },
+        launch: { title: 'Set up once. Take the keys.', sub: 'A one-time build, training, and playbooks — then run it yourself, or hand it back to us anytime.' }
+      };
+      function setMode(mode) {
+        var isLaunch = mode === 'launch';
+        gridM.hidden = isLaunch; footM.hidden = isLaunch;
+        gridL.hidden = !isLaunch; footL.hidden = !isLaunch;
+        title.textContent = COPY[mode].title;
+        sub.textContent = COPY[mode].sub;
+        (isLaunch ? gridL : gridM).querySelectorAll('[data-reveal]').forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+        toggles.forEach(function (b) {
+          var on = b.dataset.mode === mode;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      }
+      toggles.forEach(function (b) {
+        b.addEventListener('click', function () { setMode(b.dataset.mode); });
+      });
+      var switchLink = document.querySelector('.switch-to-monthly');
+      if (switchLink) switchLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        setMode('monthly');
+        document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+      });
     })();
   </script>
 
