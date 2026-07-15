@@ -2393,7 +2393,7 @@
       <ul class="tier-grid tier-grid--launch" id="grid-launch" hidden>
         <li class="tier" data-reveal>
           <h3 class="tier-name">Starter</h3>
-          <p class="tier-price">from $1,500<span class="tier-period"> one-time</span></p>
+          <p class="tier-price">from $2,400<span class="tier-period"> one-time</span></p>
           <p class="tier-story">"Get me live"</p>
           <div class="tier-plat">
             <span class="tier-plat-label">Amazon</span>
@@ -2415,7 +2415,7 @@
             <li>1 training session + Starter playbook</li>
             <li>30-day support</li>
           </ul>
-          <p class="tier-note">One platform included · add the second as a flat add-on · setup credits toward monthly.</p>
+          <p class="tier-note">One platform included · add the second as a flat add-on · <strong style="color:var(--accent);font-weight:600;">this setup is included free when we run it monthly.</strong></p>
           <a href="#book" class="btn-primary tier-cta">Book a call</a>
         </li>
         <li class="tier tier--standard" data-reveal style="--reveal-delay: 100ms">
@@ -2443,12 +2443,12 @@
             <li>2 training sessions + full SOP playbooks (Loom)</li>
             <li>45-day support</li>
           </ul>
-          <p class="tier-note">One platform included · add the second as a flat add-on · setup credits toward monthly.</p>
+          <p class="tier-note">One platform included · add the second as a flat add-on · <strong style="color:var(--accent);font-weight:600;">this setup is included free when we run it monthly.</strong></p>
           <a href="#book" class="btn-primary tier-cta">Book a call</a>
         </li>
         <li class="tier" data-reveal>
           <h3 class="tier-name">Premium</h3>
-          <p class="tier-price">from $6,900<span class="tier-period"> one-time</span></p>
+          <p class="tier-price">from $6,500<span class="tier-period"> one-time</span></p>
           <p class="tier-story">"Launch me loaded"</p>
           <div class="tier-plat">
             <span class="tier-plat-label">Amazon</span>
@@ -2470,7 +2470,7 @@
             <li>3–4 training sessions + advanced playbooks</li>
             <li>60-day support</li>
           </ul>
-          <p class="tier-note">One platform included · add the second as a flat add-on · setup credits toward monthly.</p>
+          <p class="tier-note">One platform included · add the second as a flat add-on · <strong style="color:var(--accent);font-weight:600;">this setup is included free when we run it monthly.</strong></p>
           <a href="#book" class="btn-primary tier-cta">Book a call</a>
         </li>
       </ul>
@@ -3176,9 +3176,9 @@
         ],
         // ONE-TIME "Set me up once" launch tiers (by platform count). One-time.
         launchTiers: [
-          { upTo: 1,   name: 'Starter',  price: 1500 },
+          { upTo: 1,   name: 'Starter',  price: 2400 },
           { upTo: 3,   name: 'Standard', price: 3900 },
-          { upTo: 999, name: 'Premium',  price: 6900 }
+          { upTo: 999, name: 'Premium',  price: 6500 }
         ],
         // Add-ons. type 'monthly' adds to the retainer; type 'onetime' is a
         // one-off setup fee shown separately.
@@ -3186,10 +3186,17 @@
           { id: 'ads',     label: 'Paid ads (2 channels, flat)',        price: 1200, type: 'monthly', desc: 'Two ad channels managed, flat fee, never a % of spend.' },
           { id: 'social',  label: 'Social content (16 posts + 4 videos)', price: 700, type: 'monthly', desc: '16 posts and 4 videos a month, made and scheduled.' },
           { id: 'email',   label: 'Email & retention',                  price: 500,  type: 'monthly', desc: 'Automations and campaigns that bring buyers back.' },
+          { id: 'ugc',     label: 'Influencer / UGC content',           price: 900,  type: 'monthly', desc: 'Creators sourced and briefed; a batch of UGC ads every month.' },
+          { id: 'reviews', label: 'Review & reputation management',     price: 400,  type: 'monthly', desc: 'Reviews generated, monitored, and responded to across your listings.' },
+          { id: 'analytics', label: 'Analytics & reporting upgrade',    price: 300,  type: 'monthly', desc: 'A custom dashboard plus a deeper weekly read on what moved.' },
           { id: 'sku',     label: 'Extra SKU block (+25)',              price: 450,  type: 'monthly', desc: '25 more products actively worked and optimized.' },
           { id: 'channel', label: 'Extra ad channel',                   price: 700,  type: 'monthly', desc: 'One more paid channel added to the mix.' },
           { id: 'brand',   label: 'Brand & creative kit',               price: 500,  type: 'onetime', desc: 'Logo, colors, and templates, built once.' },
-          { id: 'website', label: 'Website build (up to 5 pages)',      price: 900,  type: 'onetime', desc: 'A conversion-focused site, up to 5 pages, built once.' }
+          { id: 'website', label: 'Website build (up to 5 pages)',      price: 900,  type: 'onetime', desc: 'A conversion-focused site, up to 5 pages, built once.' },
+          { id: 'photo',   label: 'Product photography',                price: 900,  type: 'onetime', desc: 'A studio set of clean product shots, shot once.' },
+          { id: 'video',   label: 'Product / lifestyle video',          price: 1200, type: 'onetime', desc: 'A hero product or lifestyle video, produced once.' },
+          { id: 'infographic', label: 'Infographic / listing image stack', price: 500, type: 'onetime', desc: 'Main image plus a full listing image stack, designed once.' },
+          { id: 'trademark', label: 'Trademark & Brand Registry filing', price: 500, type: 'onetime', desc: 'Trademark filing support and Brand Registry enrollment.' }
         ]
       };
       // ===================================================================
@@ -3334,7 +3341,7 @@
       var COPY = {
         monthly: { per: 'per month, flat', terms: 'month-to-month · cancel anytime · judged on the first weekly report',
                    hint: "Click a platform to see what's included and add platform-specific extras. 1 platform = Basic · 2 to 3 = Standard · 4+ = Premium" },
-        launch:  { per: 'one-time build', terms: 'one-time · training + playbooks included · credits toward monthly',
+        launch:  { per: 'one-time build', terms: 'one-time · training + playbooks · this setup is included free when we run it monthly',
                    hint: "Click a platform to see what's included and add setup extras. 1 platform = Starter · 2 to 3 = Standard · 4+ = Premium" }
       };
 
