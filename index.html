@@ -3479,16 +3479,13 @@
         { src: 'baby-lounger-lifestyle.mp4', poster: 'baby-lounger-lifestyle-poster.jpg' },
         { src: 'candy-blast-app.mp4',        poster: 'candy-blast-app-poster.jpg' },
         { src: 'reel-01.mp4',                poster: 'reel-01-poster.jpg' },
-        { src: 'reel-06.mp4',                poster: 'reel-06-poster.jpg' }
+        { src: 'reel-06.mp4',                poster: 'reel-06-poster.jpg' },
+        { src: 'reel-07.mp4',                poster: 'reel-07-poster.jpg' }
       ];
 
-      // pool of tile descriptors; videos spliced in so a few tiles play (desktop only)
-      var pool = IMGS.map(function (f) { return { type: 'img', src: 'assets/' + f }; });
-      if (!reduce) {
-        VIDS.forEach(function (v, i) {
-          pool.splice(2 + i * 4, 0, { type: 'video', src: 'assets/' + v.src, poster: 'assets/' + v.poster });
-        });
-      }
+      // separate pools so every column is guaranteed its own video + images
+      var imgPool = IMGS.map(function (f) { return { type: 'img', src: 'assets/' + f }; });
+      var vidPool = reduce ? [] : VIDS.map(function (v) { return { type: 'video', src: 'assets/' + v.src, poster: 'assets/' + v.poster }; });
 
       function tileImg(src) {
         var t = document.createElement('div'); t.className = 'wall-tile';
@@ -3511,6 +3508,7 @@
       var DIRS = ['up', 'down', 'up', 'down', 'up'];
       var DURS = ['46s', '61s', '52s', '67s', '49s'];
       var TILES_PER_COL = 4;
+      var imgN = 0;
 
       for (var c = 0; c < COLS; c++) {
         var col = document.createElement('div');
@@ -3519,13 +3517,19 @@
         track.className = 'wall-track';
         track.style.setProperty('--wall-dur', DURS[c]);
 
+        // every column gets one video at a rotating row so videos never line up in a
+        // single band — at any scroll offset several are on screen
         var items = [];
-        for (var k = 0; k < TILES_PER_COL; k++) items.push(pool[(c * TILES_PER_COL + k) % pool.length]);
+        var vidRow = vidPool.length ? (c % TILES_PER_COL) : -1;
+        for (var k = 0; k < TILES_PER_COL; k++) {
+          if (k === vidRow) { items.push(vidPool[c % vidPool.length]); }
+          else { items.push(imgPool[imgN % imgPool.length]); imgN++; }
+        }
 
-        // first copy: live (videos play); second copy: posters only — keeps the loop
-        // seamless (identical heights) while capping the number of live videos.
+        // BOTH copies live (identical heights → still seamless) so a video is always
+        // playing in every column, never a static-poster half of the loop
         items.forEach(function (it) { track.appendChild(tileLive(it)); });
-        items.forEach(function (it) { track.appendChild(tileImg(it.type === 'video' ? it.poster : it.src)); });
+        items.forEach(function (it) { track.appendChild(tileLive(it)); });
 
         col.appendChild(track);
         wall.appendChild(col);
