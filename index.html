@@ -3632,10 +3632,19 @@
           linesEl.appendChild(li);
         });
 
-        // hand the built plan to the checkout page and route the CTA there
-        window.CLIO_PLAN = { source: 'builder', mode: r.mode, tierName: r.tierName, total: r.total, once: r.once, lines: r.lines };
+        // remember the current build; only commit it to the checkout when they click the CTA
+        lastResult = r;
         ctaEl.setAttribute('href', '#book');
       }
+
+      // the checkout receipt reflects the build ONLY if the buyer clicks this CTA —
+      // a plain "Book a call" from the nav leaves it blank (just inquiring)
+      var lastResult = null;
+      if (ctaEl) ctaEl.addEventListener('click', function () {
+        if (lastResult) {
+          window.CLIO_PLAN = { source: 'builder', mode: lastResult.mode, tierName: lastResult.tierName, total: lastResult.total, once: lastResult.once, lines: lastResult.lines };
+        }
+      });
 
       document.querySelectorAll('.builder-mode .ptoggle').forEach(function (b) {
         b.addEventListener('click', function () { setBuilderMode(b.dataset.bmode); });
