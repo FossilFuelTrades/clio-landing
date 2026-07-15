@@ -1986,7 +1986,7 @@
     .marquee-track {
       display: flex;
       width: max-content;
-      animation: marquee-scroll 30s linear infinite;
+      animation: marquee-scroll 60s linear infinite;
     }
 
     .marquee:hover .marquee-track {
@@ -2240,6 +2240,20 @@
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
+      <!-- Two identical halves for a seamless translateX(-50%) loop; each half repeats the
+           set twice so it always exceeds the viewport width (no gap on wide screens). -->
+      <span class="marquee-item">Amazon</span>
+      <span class="marquee-item">Shopify</span>
+      <span class="marquee-item">Walmart</span>
+      <span class="marquee-item">eBay</span>
+      <span class="marquee-item">Etsy</span>
+      <span class="marquee-item">TikTok Shop</span>
+      <span class="marquee-item">Amazon</span>
+      <span class="marquee-item">Shopify</span>
+      <span class="marquee-item">Walmart</span>
+      <span class="marquee-item">eBay</span>
+      <span class="marquee-item">Etsy</span>
+      <span class="marquee-item">TikTok Shop</span>
       <span class="marquee-item">Amazon</span>
       <span class="marquee-item">Shopify</span>
       <span class="marquee-item">Walmart</span>
