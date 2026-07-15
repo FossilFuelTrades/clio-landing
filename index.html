@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="description" content="CLIO Creative Concepts runs your store, listings, content, ads, and email for one flat monthly rate. Operators, not planners. Month-to-month, judged on the first weekly report.">
   <title>CLIO Creative Concepts — We run your marketing and ecommerce</title>
   <meta property="og:type" content="website">
@@ -1435,6 +1438,41 @@
     .report-bar--md { width: 58%; }
     .report-bar--sm { width: 42%; }
 
+    .report-num {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+      line-height: 1;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .report-num--accent { color: var(--accent); }
+
+    .report-metric-label {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .report-subs {
+      list-style: none;
+      margin: 1rem 0 0;
+      padding: 0.9rem 0 0;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+    .report-subs li {
+      font-size: 0.92rem;
+      color: var(--muted);
+      padding: 0.22rem 0;
+    }
+    .report-subs li span {
+      color: var(--ink);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
     .report-caption {
       margin-top: 1rem;
       color: var(--muted);
@@ -2848,24 +2886,34 @@
           <div class="report-cols">
             <div class="report-col">
               <span class="report-col-label">What sold</span>
-              <span class="report-bar report-bar--full"></span>
-              <span class="report-bar report-bar--sm"></span>
-              <span class="report-bar report-bar--md"></span>
+              <p class="report-num" data-count-target="42800" data-count-prefix="$">$42,800</p>
+              <span class="report-metric-label">revenue this week</span>
+              <ul class="report-subs">
+                <li><span data-count-target="1240">1,240</span> units sold</li>
+                <li><span data-count-target="1010">1,010</span> orders shipped</li>
+              </ul>
             </div>
             <div class="report-col">
               <span class="report-col-label">What changed</span>
-              <span class="report-bar report-bar--md"></span>
-              <span class="report-bar report-bar--lg"></span>
+              <p class="report-num report-num--accent" data-count-target="22" data-count-prefix="+" data-count-suffix="%">+22%</p>
+              <span class="report-metric-label">revenue vs last week</span>
+              <ul class="report-subs">
+                <li><span data-count-target="4.3" data-count-decimals="1" data-count-suffix="x">4.3x</span> blended ROAS</li>
+                <li><span data-count-target="98" data-count-suffix="%">98%</span> Buy Box held</li>
+              </ul>
             </div>
             <div class="report-col">
               <span class="report-col-label">What's next</span>
-              <span class="report-bar report-bar--lg"></span>
-              <span class="report-bar report-bar--sm"></span>
-              <span class="report-bar report-bar--md"></span>
+              <p class="report-num" data-count-target="3">3</p>
+              <span class="report-metric-label">tests going live</span>
+              <ul class="report-subs">
+                <li><span data-count-target="2">2</span> A+ pages shipping</li>
+                <li><span data-count-target="5">5</span> listings re-optimized</li>
+              </ul>
             </div>
           </div>
         </div>
-        <p class="report-caption">Sample format — this is the report every client gets weekly.</p>
+        <p class="report-caption">Sample format — illustrative figures. You get real numbers like these, in plain English, every week.</p>
       </div>
     </div>
   </section>
@@ -3084,27 +3132,33 @@
       }
 
       if (!reduce) {
-        // count-up on the price figure, fires once in view
-        var counter = document.querySelector('[data-count-target]');
-        if (counter && 'IntersectionObserver' in window) {
+        // count-up on any [data-count-target] figure, each fires once in view.
+        // supports data-count-prefix ("$"/"+"), data-count-suffix ("%"/"x"), data-count-decimals
+        var counters = document.querySelectorAll('[data-count-target]');
+        if (counters.length && 'IntersectionObserver' in window) {
           var cio = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
               if (!entry.isIntersecting) return;
-              cio.disconnect();
-              var target = parseInt(counter.getAttribute('data-count-target'), 10);
-              var t0 = null;
-              var dur = 1100;
+              var el = entry.target;
+              cio.unobserve(el);
+              var target = parseFloat(el.getAttribute('data-count-target'));
+              var prefix = el.getAttribute('data-count-prefix') || '';
+              var suffix = el.getAttribute('data-count-suffix') || '';
+              var decimals = parseInt(el.getAttribute('data-count-decimals') || '0', 10);
+              var t0 = null, dur = 1100;
               function tick(ts) {
                 if (!t0) t0 = ts;
                 var p = Math.min((ts - t0) / dur, 1);
                 var eased = 1 - Math.pow(1 - p, 4);
-                counter.textContent = Math.round(target * eased).toLocaleString('en-US');
+                var val = target * eased;
+                var text = decimals > 0 ? val.toFixed(decimals) : Math.round(val).toLocaleString('en-US');
+                el.textContent = prefix + text + suffix;
                 if (p < 1) requestAnimationFrame(tick);
               }
               requestAnimationFrame(tick);
             });
           }, { threshold: 0.6 });
-          cio.observe(counter);
+          counters.forEach(function (c) { cio.observe(c); });
         }
 
         // magnetic primary buttons (desktop only)
