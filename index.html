@@ -1934,7 +1934,8 @@
       .reel-grid { grid-template-columns: repeat(4, 1fr); }
     }
 
-    .case-media--square video { aspect-ratio: 1 / 1; }
+    .case-media--square video,
+    .case-media--square img { aspect-ratio: 1 / 1; }
 
     .case-card--todo {
       aspect-ratio: 16 / 6;
@@ -2423,6 +2424,15 @@
               <span class="case-chips"><span class="chip">Video</span><span class="chip">Product</span></span>
             </div>
           </li>
+          <li class="case-card" data-reveal>
+            <div class="case-media case-media--square">
+              <img src="assets/case-soda-cans.jpg" alt="Beverage packaging design — full product line" loading="lazy">
+            </div>
+            <div class="case-meta">
+              <span class="case-title">Product &amp; packaging design — beverage line</span>
+              <span class="case-chips"><span class="chip">Design</span><span class="chip">Packaging</span></span>
+            </div>
+          </li>
           <!-- FOUNDER: work-sample swap slot (hidden for live; add more case cards here) -->
         </ul>
 
@@ -2469,6 +2479,17 @@
             </div>
             <div class="reel-meta">
               <span class="case-title">3D animated brand character</span>
+              <span class="case-chips"><span class="chip">3D</span><span class="chip">Motion</span></span>
+            </div>
+          </li>
+          <li class="reel-card" data-reveal>
+            <div class="reel-media">
+              <video preload="none" poster="assets/reel-07-poster.jpg" playsinline muted loop data-hoverplay aria-label="3D animated character short">
+                <source src="assets/reel-07.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="reel-meta">
+              <span class="case-title">3D animated character short</span>
               <span class="case-chips"><span class="chip">3D</span><span class="chip">Motion</span></span>
             </div>
           </li>
@@ -3040,6 +3061,7 @@
       var IMGS = [
         'reel-01-poster.jpg', 'reel-02-poster.jpg', 'reel-03-poster.jpg',
         'reel-04-poster.jpg', 'reel-05-poster.jpg', 'reel-06-poster.jpg',
+        'reel-07-poster.jpg', 'case-soda-cans.jpg',
         'candy-blast-app-poster.jpg', 'baby-lounger-lifestyle-poster.jpg'
       ];
       var VIDS = [
