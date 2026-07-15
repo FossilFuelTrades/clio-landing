@@ -1898,7 +1898,6 @@
 
     .marquee-track {
       display: flex;
-      gap: clamp(2.5rem, 5vw, 4rem);
       width: max-content;
       animation: marquee-scroll 30s linear infinite;
     }
@@ -1914,10 +1913,12 @@
       white-space: nowrap;
     }
 
+    /* separator carries all spacing (both sides) so every item is a uniform
+       tile — the track is exactly two identical halves, so translateX(-50%) loops seamlessly */
     .marquee-item::after {
       content: "·";
       color: var(--accent);
-      margin-left: clamp(2.5rem, 5vw, 4rem);
+      margin: 0 clamp(2.5rem, 5vw, 4rem);
     }
 
     @keyframes marquee-scroll {
@@ -3431,13 +3432,17 @@
       var IMGS = [
         'reel-01-poster.jpg', 'reel-02-poster.jpg', 'reel-03-poster.jpg',
         'reel-04-poster.jpg', 'reel-05-poster.jpg', 'reel-06-poster.jpg',
-        'reel-07-poster.jpg', 'case-soda-cans.jpg',
+        'reel-07-poster.jpg',
+        'case-soda-cans-wall.jpg', 'case-backpack-wall.jpg', 'case-penguin-bed-wall.jpg',
+        'case-poolcover-hero-wall.jpg', 'case-crib-bedding-wall.jpg',
+        'case-ba2-after-wall.jpg', 'case-ba-after-wall.jpg', 'case-aplus-raptor-wall.jpg',
         'candy-blast-app-poster.jpg', 'baby-lounger-lifestyle-poster.jpg'
       ];
       var VIDS = [
         { src: 'baby-lounger-lifestyle.mp4', poster: 'baby-lounger-lifestyle-poster.jpg' },
         { src: 'candy-blast-app.mp4',        poster: 'candy-blast-app-poster.jpg' },
-        { src: 'reel-01.mp4',                poster: 'reel-01-poster.jpg' }
+        { src: 'reel-01.mp4',                poster: 'reel-01-poster.jpg' },
+        { src: 'reel-06.mp4',                poster: 'reel-06-poster.jpg' }
       ];
 
       // pool of tile descriptors; videos spliced in so a few tiles play (desktop only)
