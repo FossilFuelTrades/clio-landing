@@ -1211,6 +1211,47 @@
       .lightbox img { transform: none; }
     }
 
+    /* ===== CHECKOUT / BOOKING ===== */
+    .checkout { padding: clamp(3.5rem, 9vw, 7rem) 0; border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); }
+    .checkout-head { max-width: 54ch; margin-bottom: clamp(2.25rem, 5vw, 3.25rem); }
+    .checkout-kicker { display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.9rem; }
+    .checkout-head h2 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(2.2rem, 3.6vw + 0.9rem, 3.4rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.75rem; }
+    .checkout-sub { color: var(--muted); font-size: clamp(1rem, 0.4vw + 0.92rem, 1.08rem); line-height: 1.6; max-width: 54ch; }
+
+    .checkout-grid { display: grid; grid-template-columns: 1fr; gap: clamp(1.25rem, 3vw, 1.75rem); align-items: stretch; }
+    @media (min-width: 900px) { .checkout-grid { grid-template-columns: 1fr 1fr; } }
+
+    .checkout-col { border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); border-radius: var(--radius); padding: clamp(1.5rem, 3vw, 2.25rem); background: color-mix(in srgb, #ffffff 3%, transparent); }
+
+    .checkout-receipt { margin-bottom: 1.5rem; }
+    .receipt-label { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.65rem; }
+    .receipt-plan { font-family: var(--font-serif); font-size: 1.3rem; color: var(--ink); margin-bottom: 0.15rem; }
+    .receipt-price { font-family: var(--font-serif); font-size: 1.55rem; color: var(--ink); }
+    .receipt-price span { font-family: var(--font-sans); font-size: 0.92rem; color: var(--muted); }
+    .receipt-lines { list-style: none; margin: 0.9rem 0 0; padding: 0.9rem 0 0; border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); }
+    .receipt-lines li { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.88rem; color: var(--muted); padding: 0.28rem 0; }
+    .receipt-empty { color: var(--muted); font-size: 0.98rem; line-height: 1.6; }
+    .receipt-empty a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 0.15em; }
+
+    .cf-field { margin-bottom: 1rem; }
+    .cf-field label { display: block; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink); margin-bottom: 0.4rem; }
+    .cf-opt { font-weight: 400; color: var(--muted); font-size: 0.75rem; letter-spacing: 0; text-transform: none; }
+    .cf-field input, .cf-field textarea {
+      width: 100%; font-family: var(--font-sans); font-size: 0.98rem; color: var(--ink);
+      background: color-mix(in srgb, #000 22%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+      border-radius: calc(var(--radius) - 6px); padding: 0.7rem 0.85rem; transition: border-color 0.2s ease;
+    }
+    .cf-field input:focus, .cf-field textarea:focus { outline: none; border-color: var(--accent); }
+    .cf-field textarea { resize: vertical; min-height: 3.4rem; }
+    .cf-error { color: #e2725b; font-size: 0.85rem; margin: 0.1rem 0 0.6rem; }
+    .cf-note { margin-top: 0.9rem; font-size: 0.8rem; color: var(--muted); }
+
+    .checkout-col--cal { display: flex; flex-direction: column; justify-content: center; }
+    .cal-step { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem; }
+    .cal-placeholder p { font-size: 1.02rem; line-height: 1.6; color: var(--muted); max-width: 34ch; }
+    .cal-embed { width: 100%; min-height: 520px; }
+    .cal-embed[hidden] { display: none; }
+
     /* ===== PROOF ===== */
     .proof {
       padding: clamp(3.5rem, 9vw, 7rem) 0;
@@ -2849,17 +2890,51 @@
     </div>
   </section>
 
-  <section id="book" class="book">
-    <div class="wrap book-inner">
-      <div class="book-head" data-reveal>
-        <h2>Book your free audit call.</h2>
-        <p class="book-sub">15 minutes. We'll show you where you're leaving money — in plain English — whether or not you hire us.</p>
+  <section id="book" class="book checkout">
+    <div class="wrap">
+      <div class="checkout-head" data-reveal>
+        <span class="checkout-kicker">Book your free audit call</span>
+        <h2>Lock in your plan.</h2>
+        <p class="checkout-sub">15 minutes with the team. We'll confirm your plan and show you where you're leaving money — in plain English, whether or not you hire us.</p>
       </div>
-      <div class="book-embed-wrap">
-        <!-- FOUNDER: when the Cal.com link lands, restore the embed slot here (see SHIP_BLOCKERS.md) -->
-        <a href="mailto:christian@cliocreativeconcepts.com?subject=Free%20audit%20call" class="btn-primary">Book your free audit call</a>
+
+      <div class="checkout-grid" data-reveal>
+        <div class="checkout-col checkout-col--form">
+          <div class="checkout-receipt" id="checkout-receipt" aria-live="polite"></div>
+
+          <form class="checkout-form" id="checkout-form" novalidate>
+            <div class="cf-field">
+              <label for="cf-name">Name</label>
+              <input type="text" id="cf-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="cf-field">
+              <label for="cf-email">Email</label>
+              <input type="email" id="cf-email" name="email" autocomplete="email" required>
+            </div>
+            <div class="cf-field">
+              <label for="cf-phone">Phone <span class="cf-opt">optional</span></label>
+              <input type="tel" id="cf-phone" name="phone" autocomplete="tel">
+            </div>
+            <div class="cf-field">
+              <label for="cf-message">Anything we should know? <span class="cf-opt">optional</span></label>
+              <textarea id="cf-message" name="message" rows="3"></textarea>
+            </div>
+            <p class="cf-error" id="cf-error" hidden>Please add your name and a valid email.</p>
+            <button type="submit" class="btn-primary" id="cf-submit">Continue to pick a time →</button>
+            <p class="cf-note">No contracts. We only use this to prep for and confirm your call.</p>
+          </form>
+        </div>
+
+        <div class="checkout-col checkout-col--cal">
+          <div class="cal-placeholder" id="cal-placeholder">
+            <span class="cal-step">Step 2</span>
+            <p>Enter your details, then pick a time from our live calendar — synced to the whole team's real availability.</p>
+          </div>
+          <div id="cal-embed" class="cal-embed" hidden></div>
+        </div>
       </div>
-      <p class="fallback">Or write to <a href="mailto:christian@cliocreativeconcepts.com">christian@cliocreativeconcepts.com</a></p>
+
+      <p class="fallback">Prefer email? Write to <a href="mailto:christian@cliocreativeconcepts.com">christian@cliocreativeconcepts.com</a></p>
     </div>
   </section>
 
@@ -3470,22 +3545,9 @@
           linesEl.appendChild(li);
         });
 
-        // build a mailto so the lead's exact plan reaches Christian
-        var summaryText = r.lines.map(function (ln) {
-          return '- ' + ln.label + ': $' + fmt(ln.amount) + (ln.per === 'once' ? ' one-time' : '/mo');
-        }).join('\n');
-        var subj, body, totalsLine;
-        if (r.mode === 'launch') {
-          totalsLine = 'One-time total: $' + fmt(r.total);
-          subj = 'My custom launch — $' + fmt(r.total) + ' one-time';
-          body = 'Here is the one-time launch I built:\n\n' + summaryText + '\n\n' + totalsLine + '\n\nI would like to book the free audit call.';
-        } else {
-          totalsLine = 'Monthly total: $' + fmt(r.total) + '/mo' + (r.once > 0 ? '\nOne-time setup: $' + fmt(r.once) : '');
-          subj = 'My custom plan — $' + fmt(r.total) + '/mo' + (r.once > 0 ? ' + $' + fmt(r.once) + ' setup' : '');
-          body = 'Here is the plan I built:\n\n' + summaryText + '\n\n' + totalsLine + '\n\nI would like to book the free audit call.';
-        }
-        ctaEl.setAttribute('href', 'mailto:christian@cliocreativeconcepts.com?subject=' +
-          encodeURIComponent(subj) + '&body=' + encodeURIComponent(body));
+        // hand the built plan to the checkout page and route the CTA there
+        window.CLIO_PLAN = { source: 'builder', mode: r.mode, tierName: r.tierName, total: r.total, once: r.once, lines: r.lines };
+        ctaEl.setAttribute('href', '#book');
       }
 
       document.querySelectorAll('.builder-mode .ptoggle').forEach(function (b) {
@@ -3571,6 +3633,118 @@
         col.appendChild(track);
         wall.appendChild(col);
       }
+    })();
+  </script>
+
+  <script>
+    // ===================================================================
+    // CHECKOUT / BOOKING — set CAL_LINK to your Cal.com team event once
+    // your + Don's Google Calendars are connected (e.g. "clio/discovery").
+    // Empty = interim email fallback so no lead is lost before Cal is live.
+    var CAL_LINK = '';
+    // ===================================================================
+    (function () {
+      var receiptEl = document.getElementById('checkout-receipt');
+      var form = document.getElementById('checkout-form');
+      if (!receiptEl || !form) return;
+      var fmt = function (n) { return Number(n).toLocaleString('en-US'); };
+      var esc = function (s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; };
+
+      function renderReceipt() {
+        var p = window.CLIO_PLAN;
+        if (!p) {
+          receiptEl.innerHTML = '<span class="receipt-label">Your plan</span>' +
+            '<p class="receipt-empty">No plan built yet — that\'s fine, we\'ll scope it live on the call. Or <a href="#builder">build one first</a>.</p>';
+          return;
+        }
+        var html = '<span class="receipt-label">Your plan</span>';
+        if (p.source === 'builder') {
+          var per = p.mode === 'launch' ? ' one-time' : '/mo';
+          html += '<p class="receipt-plan">' + esc(p.tierName) + (p.mode === 'launch' ? ' launch' : ' plan') + '</p>';
+          html += '<p class="receipt-price">$' + fmt(p.total) + '<span>' + per + '</span></p>';
+          html += '<ul class="receipt-lines">' + p.lines.map(function (ln) {
+            return '<li><span>' + esc(ln.label) + '</span><span>$' + fmt(ln.amount) + (ln.per === 'once' ? ' once' : '/mo') + '</span></li>';
+          }).join('') + '</ul>';
+          if (p.once > 0) html += '<p class="receipt-price" style="font-size:1.05rem;margin-top:0.6rem;">+ $' + fmt(p.once) + '<span> one-time setup</span></p>';
+        } else {
+          html += '<p class="receipt-plan">' + esc(p.tierName) + '</p>';
+          html += '<p class="receipt-price">' + esc(p.priceText) + '</p>';
+        }
+        receiptEl.innerHTML = html;
+      }
+
+      // capture the chosen tier when a tier's "Book a call" is clicked
+      document.querySelectorAll('#pricing .tier .tier-cta').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var tier = btn.closest('.tier');
+          window.CLIO_PLAN = {
+            source: 'tier',
+            tierName: tier.querySelector('.tier-name').textContent.trim(),
+            priceText: tier.querySelector('.tier-price').textContent.trim().replace(/\s+/g, ' ')
+          };
+          renderReceipt();
+        });
+      });
+
+      // keep the receipt current whenever the checkout comes into view
+      document.querySelectorAll('a[href="#book"]').forEach(function (a) {
+        a.addEventListener('click', function () { setTimeout(renderReceipt, 0); });
+      });
+      window.addEventListener('hashchange', function () { if (location.hash === '#book') renderReceipt(); });
+
+      function planToText(p) {
+        if (!p) return 'Plan: to be scoped on the call.';
+        if (p.source === 'builder') {
+          var per = p.mode === 'launch' ? ' one-time' : '/mo';
+          var head = 'Plan: ' + p.tierName + (p.mode === 'launch' ? ' launch' : ' plan') + ' — $' + fmt(p.total) + per + (p.once > 0 ? ' + $' + fmt(p.once) + ' setup' : '');
+          var lines = p.lines.map(function (ln) { return '  - ' + ln.label + ': $' + fmt(ln.amount) + (ln.per === 'once' ? ' once' : '/mo'); }).join('\n');
+          return head + '\n' + lines;
+        }
+        return 'Plan: ' + p.tierName + ' — ' + p.priceText;
+      }
+
+      var calMounted = false;
+      function mountCal(name, email, notes) {
+        var placeholder = document.getElementById('cal-placeholder');
+        var embed = document.getElementById('cal-embed');
+        if (placeholder) placeholder.hidden = true;
+        embed.hidden = false;
+        if (!calMounted) {
+          (function (C, A, L) { var p = function (a, ar) { a.q.push(ar); }; var d = C.document; C.Cal = C.Cal || function () { var cal = C.Cal; var ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { var api = function () { p(api, arguments); }; var namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+          window.Cal("init", { origin: "https://cal.com" });
+          window.Cal("inline", { elementOrSelector: "#cal-embed", calLink: CAL_LINK, config: { name: name, email: email, notes: notes, theme: "dark" } });
+          window.Cal("ui", { theme: "dark", cssVarsPerTheme: { dark: { "cal-brand": "#c9a227" } }, hideEventTypeDetails: false });
+          calMounted = true;
+        }
+        embed.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function calNote(msg) {
+        var placeholder = document.getElementById('cal-placeholder');
+        if (placeholder) { placeholder.hidden = false; placeholder.innerHTML = '<span class="cal-step">Next</span><p>' + esc(msg) + '</p>'; }
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('cf-name').value.trim(),
+            email = document.getElementById('cf-email').value.trim(),
+            phone = document.getElementById('cf-phone').value.trim(),
+            message = document.getElementById('cf-message').value.trim();
+        var err = document.getElementById('cf-error');
+        if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.hidden = false; return; }
+        err.hidden = true;
+        var notes = [planToText(window.CLIO_PLAN), phone ? ('Phone: ' + phone) : '', message ? ('Message: ' + message) : ''].filter(Boolean).join('\n');
+        if (CAL_LINK) {
+          mountCal(name, email, notes);
+        } else {
+          var subj = 'Free audit call — ' + name + (window.CLIO_PLAN ? (' (' + (window.CLIO_PLAN.tierName || 'custom plan') + ')') : '');
+          var body = 'Name: ' + name + '\nEmail: ' + email + (phone ? ('\nPhone: ' + phone) : '') + '\n\n' + planToText(window.CLIO_PLAN) + (message ? ('\n\nMessage:\n' + message) : '') + '\n\nI\'d like to book the free audit call.';
+          window.location.href = 'mailto:christian@cliocreativeconcepts.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+          calNote('Thanks, ' + name.split(' ')[0] + ' — your details are on their way to us by email. Our live booking calendar is being connected and will drop in here shortly.');
+        }
+      });
+
+      renderReceipt();
     })();
   </script>
 </body>
