@@ -3845,5 +3845,34 @@
       renderReceipt();
     })();
   </script>
+
+  <script>
+    // ===== SEAMLESS PLATFORM MARQUEE =====
+    // Auto-repeats the channel set so each half always overflows the viewport (no loop gap
+    // on any screen, incl. ultrawide), and scales duration to keep a constant scroll speed.
+    (function () {
+      var track = document.querySelector('.marquee-track');
+      if (!track) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var base = ['Amazon', 'Shopify', 'Walmart', 'eBay', 'Etsy', 'TikTok Shop'];
+      var PX_PER_SEC = 46;
+      function addSet() { base.forEach(function (t) { var s = document.createElement('span'); s.className = 'marquee-item'; s.textContent = t; track.appendChild(s); }); }
+      function build() {
+        track.style.animation = 'none';
+        track.innerHTML = '';
+        addSet();                                   // one set, to measure
+        var setW = track.scrollWidth;
+        if (!setW) { return; }
+        var setsPerHalf = Math.max(2, Math.ceil((window.innerWidth + 240) / setW));
+        track.innerHTML = '';
+        for (var i = 0; i < setsPerHalf * 2; i++) { addSet(); }   // two identical halves
+        var dur = Math.max(24, Math.round((track.scrollWidth / 2) / PX_PER_SEC));
+        track.style.animation = 'marquee-scroll ' + dur + 's linear infinite';
+      }
+      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(build); } else { build(); }
+      var rt;
+      window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(build, 250); });
+    })();
+  </script>
 </body>
 </html>
