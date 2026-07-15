@@ -1074,9 +1074,12 @@
     @media (min-width: 560px) { .cap-groups { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 940px) { .cap-groups { grid-template-columns: repeat(4, 1fr); } }
 
-    /* A+ content row: single 4-across row on desktop */
+    /* A+ content row: single 4-across row on desktop (higher specificity to beat .case-grid) */
     @media (min-width: 940px) {
-      .case-grid--four { grid-template-columns: repeat(4, 1fr); }
+      .case-grid.case-grid--four { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (min-width: 560px) and (max-width: 939px) {
+      .case-grid.case-grid--four { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* before / after slider */
@@ -2567,7 +2570,7 @@
         </ul>
 
         <p class="reel-label">A+ content &amp; listing design</p>
-        <ul class="case-grid">
+        <ul class="case-grid case-grid--four">
           <li class="case-card" data-reveal>
             <div class="case-media case-media--square">
               <img src="assets/case-aplus-raptor.jpg" alt="Amazon A+ content module — plush toy listing" loading="lazy">
@@ -2584,6 +2587,24 @@
             <div class="case-meta">
               <span class="case-title">A+ content module — pool &amp; outdoor brand</span>
               <span class="case-chips"><span class="chip">A+ Content</span><span class="chip">Listing</span></span>
+            </div>
+          </li>
+          <li class="case-card" data-reveal>
+            <div class="case-media case-media--square">
+              <img src="assets/case-poolcover-hero.jpg" alt="Product listing hero — pool cover" loading="lazy">
+            </div>
+            <div class="case-meta">
+              <span class="case-title">Listing hero — pool &amp; outdoor brand</span>
+              <span class="case-chips"><span class="chip">Listing</span><span class="chip">Hero</span></span>
+            </div>
+          </li>
+          <li class="case-card" data-reveal>
+            <div class="case-media case-media--square">
+              <img src="assets/case-aplus-winterkit.jpg" alt="Amazon listing image — pool winter kit" loading="lazy">
+            </div>
+            <div class="case-meta">
+              <span class="case-title">Listing &amp; packaging — pool care kit</span>
+              <span class="case-chips"><span class="chip">Listing</span><span class="chip">Packaging</span></span>
             </div>
           </li>
           <!-- FOUNDER: A+ content / listing infographic modules drop in here as case-card items -->
@@ -2607,6 +2628,24 @@
             <div class="case-meta">
               <span class="case-title">Product photography — nursery &amp; baby</span>
               <span class="case-chips"><span class="chip">Photography</span><span class="chip">Product</span></span>
+            </div>
+          </li>
+          <li class="case-card" data-reveal>
+            <div class="case-media case-media--square">
+              <img src="assets/case-backpack.jpg" alt="Product photography — kids backpack" loading="lazy">
+            </div>
+            <div class="case-meta">
+              <span class="case-title">Product photography — kids accessories</span>
+              <span class="case-chips"><span class="chip">Photography</span><span class="chip">Product</span></span>
+            </div>
+          </li>
+          <li class="case-card" data-reveal>
+            <div class="case-media case-media--square">
+              <img src="assets/case-penguin-bed.jpg" alt="Lifestyle product photography — pet bed" loading="lazy">
+            </div>
+            <div class="case-meta">
+              <span class="case-title">Lifestyle photography — home &amp; pet</span>
+              <span class="case-chips"><span class="chip">Photography</span><span class="chip">Lifestyle</span></span>
             </div>
           </li>
           <!-- FOUNDER: product photography / design stills drop in here as case-card items -->
