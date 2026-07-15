@@ -1074,6 +1074,11 @@
     @media (min-width: 560px) { .cap-groups { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 940px) { .cap-groups { grid-template-columns: repeat(4, 1fr); } }
 
+    /* A+ content row: single 4-across row on desktop */
+    @media (min-width: 940px) {
+      .case-grid--four { grid-template-columns: repeat(4, 1fr); }
+    }
+
     /* before / after slider */
     .ba-grid { list-style: none; display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
 
@@ -2405,6 +2410,10 @@
 
       <div class="builder-grid">
         <div class="builder-choices" data-reveal>
+          <div class="pricing-toggle builder-mode" role="group" aria-label="Plan type">
+            <button type="button" class="ptoggle is-active" data-bmode="monthly" aria-pressed="true">Run it monthly</button>
+            <button type="button" class="ptoggle" data-bmode="launch" aria-pressed="false">Set me up once</button>
+          </div>
           <div class="builder-group">
             <span class="builder-group-label">1 · Your focus</span>
             <div class="opt-row" id="focus-row"></div>
@@ -2412,10 +2421,10 @@
           <div class="builder-group">
             <span class="builder-group-label">2 · Platforms we run</span>
             <div class="opt-row" id="platform-row"></div>
-            <p style="margin-top:0.85rem;font-size:0.82rem;color:var(--muted);letter-spacing:0.01em;">Click a platform to see what's included and add platform-specific extras. 1 platform = Basic · 2 to 3 = Standard · 4+ = Premium</p>
+            <p id="platform-hint" style="margin-top:0.85rem;font-size:0.82rem;color:var(--muted);letter-spacing:0.01em;">Click a platform to see what's included and add platform-specific extras. 1 platform = Basic · 2 to 3 = Standard · 4+ = Premium</p>
             <div id="platform-details" class="platform-details"></div>
           </div>
-          <div class="builder-group">
+          <div class="builder-group" id="group-monthly-addons">
             <span class="builder-group-label">3 · Add to your monthly plan</span>
             <div class="opt-row" id="addon-monthly-row"></div>
           </div>
@@ -2428,13 +2437,13 @@
         <aside class="builder-summary" data-reveal style="--reveal-delay: 120ms" aria-live="polite">
           <span class="summary-label">Your plan · <span id="plan-name">Basic</span></span>
           <p class="summary-price"><span aria-hidden="true">$</span><span id="price-value">0</span></p>
-          <span class="summary-per">per month, flat</span>
+          <span class="summary-per" id="summary-per">per month, flat</span>
           <p class="summary-once" id="summary-once" hidden>+ $<span id="once-value">0</span> one-time setup</p>
           <ul class="summary-lines" id="summary-lines">
             <li class="summary-empty">Start selecting to build your price.</li>
           </ul>
           <a href="#book" class="btn-primary summary-cta" id="builder-cta">Book a call to lock this in</a>
-          <p class="summary-terms">month-to-month · cancel anytime · judged on the first weekly report</p>
+          <p class="summary-terms" id="summary-terms">month-to-month · cancel anytime · judged on the first weekly report</p>
         </aside>
       </div>
     </div>
@@ -2978,6 +2987,12 @@
           { upTo: 3,   name: 'Standard', price: 2997 },
           { upTo: 999, name: 'Premium',  price: 4997 }
         ],
+        // ONE-TIME "Set me up once" launch tiers (by platform count). One-time.
+        launchTiers: [
+          { upTo: 1,   name: 'Starter',  price: 1500 },
+          { upTo: 3,   name: 'Standard', price: 3900 },
+          { upTo: 999, name: 'Premium',  price: 6900 }
+        ],
         // Add-ons. type 'monthly' adds to the retainer; type 'onetime' is a
         // one-off setup fee shown separately.
         addons: [
@@ -3001,7 +3016,7 @@
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var fmt = function (n) { return n.toLocaleString('en-US'); };
 
-      var state = { focus: 'ecom', platforms: {}, addons: {}, platAddons: {} };
+      var state = { mode: 'monthly', focus: 'ecom', platforms: {}, addons: {}, platAddons: {} };
       PRICING.platforms.forEach(function (p) { state.platforms[p] = false; });
       PRICING.addons.forEach(function (a) { state.addons[a.id] = false; });
 
@@ -3077,12 +3092,16 @@
           var inc = document.createElement('p'); inc.className = 'pdetail-inc';
           inc.textContent = 'Included: ' + det.includes;
           card.appendChild(name); card.appendChild(inc);
-          if (det.addons && det.addons.length) {
+          // one-time mode shows only setup (onetime) extras, not ongoing management
+          var visAddons = (det.addons || []).filter(function (a) {
+            return state.mode === 'launch' ? a.type === 'onetime' : true;
+          });
+          if (visAddons.length) {
             var lbl = document.createElement('span'); lbl.className = 'pdetail-addons-label';
             lbl.textContent = p + ' add-ons';
             card.appendChild(lbl);
             var row = document.createElement('div'); row.className = 'opt-row';
-            det.addons.forEach(function (a) {
+            visAddons.forEach(function (a) {
               var suffix = (a.type === 'onetime') ? ' once' : '/mo';
               var c2 = chip('platadd', a.id, a.label, '+$' + fmt(a.price) + suffix, null);
               c2.el.classList.add('opt--plat');
@@ -3119,46 +3138,77 @@
       var planNameEl = document.getElementById('plan-name');
       var onceWrap = document.getElementById('summary-once');
       var onceEl = document.getElementById('once-value');
+      var perEl = document.getElementById('summary-per');
+      var termsEl = document.getElementById('summary-terms');
+      var monthlyAddonsGroup = document.getElementById('group-monthly-addons');
+      var hintEl = document.getElementById('platform-hint');
       var shownPrice = 0;
+
+      var COPY = {
+        monthly: { per: 'per month, flat', terms: 'month-to-month · cancel anytime · judged on the first weekly report',
+                   hint: "Click a platform to see what's included and add platform-specific extras. 1 platform = Basic · 2 to 3 = Standard · 4+ = Premium" },
+        launch:  { per: 'one-time build', terms: 'one-time · training + playbooks included · credits toward monthly',
+                   hint: "Click a platform to see what's included and add setup extras. 1 platform = Starter · 2 to 3 = Standard · 4+ = Premium" }
+      };
+
+      // switch the builder between monthly retainer and one-time launch
+      function setBuilderMode(mode) {
+        state.mode = mode;
+        if (monthlyAddonsGroup) monthlyAddonsGroup.hidden = (mode === 'launch');
+        document.querySelectorAll('.builder-mode .ptoggle').forEach(function (b) {
+          var on = b.dataset.bmode === mode;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        renderPlatformDetails();
+        render();
+      }
 
       function compute() {
         var lines = [];
         var chosen = PRICING.platforms.filter(function (p) { return state.platforms[p]; });
-        var count = Math.max(1, chosen.length); // at least Basic (1 platform)
+        var count = Math.max(1, chosen.length); // at least the first tier (1 platform)
+        var focusObj = PRICING.focus.filter(function (f) { return f.id === state.focus; })[0];
+        var platList = chosen.length ? ' (' + chosen.join(', ') + ')' : ' (1 platform)';
 
         // tier index from platform count, then floor by the chosen focus
+        var tierSet = (state.mode === 'launch') ? PRICING.launchTiers : PRICING.platformTiers;
         var byCount = 0;
-        for (var i = 0; i < PRICING.platformTiers.length; i++) {
-          if (count <= PRICING.platformTiers[i].upTo) { byCount = i; break; }
+        for (var i = 0; i < tierSet.length; i++) {
+          if (count <= tierSet[i].upTo) { byCount = i; break; }
         }
-        var focusObj = PRICING.focus.filter(function (f) { return f.id === state.focus; })[0];
         var idx = Math.max(byCount, focusObj.minTier || 0);
-        var tier = PRICING.platformTiers[idx];
+        var tier = tierSet[idx];
+
+        if (state.mode === 'launch') {
+          // one-time launch: setup base + one-time add-ons only (no ongoing management)
+          var oneTotal = tier.price;
+          lines.push({ label: tier.name + ' launch' + platList, amount: tier.price, per: 'once' });
+          PRICING.addons.forEach(function (a) {
+            if (state.addons[a.id] && a.type === 'onetime') { oneTotal += a.price; lines.push({ label: a.label, amount: a.price, per: 'once' }); }
+          });
+          Object.keys(state.platAddons).forEach(function (id) {
+            var a = state.platAddons[id];
+            if (a.type === 'onetime') { oneTotal += a.price; lines.push({ label: a.label, amount: a.price, per: 'once' }); }
+          });
+          return { mode: 'launch', total: oneTotal, once: 0, lines: lines, tierName: tier.name, chosen: chosen };
+        }
+
+        // monthly (retainer)
         var total = tier.price;
-
-        var platList = chosen.length ? ' (' + chosen.join(', ') + ')' : ' (1 platform)';
         lines.push({ label: tier.name + ' plan' + platList, amount: tier.price, per: 'mo' });
-
         var once = 0;
         PRICING.addons.forEach(function (a) {
           if (!state.addons[a.id]) return;
-          if (a.type === 'onetime') {
-            once += a.price;
-            lines.push({ label: a.label, amount: a.price, per: 'once' });
-          } else {
-            total += a.price;
-            lines.push({ label: a.label, amount: a.price, per: 'mo' });
-          }
+          if (a.type === 'onetime') { once += a.price; lines.push({ label: a.label, amount: a.price, per: 'once' }); }
+          else { total += a.price; lines.push({ label: a.label, amount: a.price, per: 'mo' }); }
         });
-
-        // platform-specific add-ons
         Object.keys(state.platAddons).forEach(function (id) {
           var a = state.platAddons[id];
           if (a.type === 'onetime') { once += a.price; lines.push({ label: a.label, amount: a.price, per: 'once' }); }
           else { total += a.price; lines.push({ label: a.label, amount: a.price, per: 'mo' }); }
         });
-
-        return { total: total, once: once, lines: lines, tierName: tier.name, chosen: chosen };
+        return { mode: 'monthly', total: total, once: once, lines: lines, tierName: tier.name, chosen: chosen };
       }
 
       function tween(to) {
@@ -3179,6 +3229,9 @@
         var r = compute();
         tween(r.total);
         if (planNameEl) planNameEl.textContent = r.tierName;
+        if (perEl) perEl.textContent = COPY[r.mode].per;
+        if (termsEl) termsEl.textContent = COPY[r.mode].terms;
+        if (hintEl) hintEl.textContent = COPY[r.mode].hint;
         if (onceWrap && onceEl) {
           if (r.once > 0) { onceEl.textContent = fmt(r.once); onceWrap.hidden = false; }
           else { onceWrap.hidden = true; }
@@ -3197,14 +3250,25 @@
         var summaryText = r.lines.map(function (ln) {
           return '- ' + ln.label + ': $' + fmt(ln.amount) + (ln.per === 'once' ? ' one-time' : '/mo');
         }).join('\n');
-        var totalsLine = 'Monthly total: $' + fmt(r.total) + '/mo' + (r.once > 0 ? '\nOne-time setup: $' + fmt(r.once) : '');
-        var body = 'Here is the plan I built:\n\n' + summaryText + '\n\n' + totalsLine + '\n\nI would like to book the free audit call.';
-        var subj = 'My custom plan — $' + fmt(r.total) + '/mo' + (r.once > 0 ? ' + $' + fmt(r.once) + ' setup' : '');
+        var subj, body, totalsLine;
+        if (r.mode === 'launch') {
+          totalsLine = 'One-time total: $' + fmt(r.total);
+          subj = 'My custom launch — $' + fmt(r.total) + ' one-time';
+          body = 'Here is the one-time launch I built:\n\n' + summaryText + '\n\n' + totalsLine + '\n\nI would like to book the free audit call.';
+        } else {
+          totalsLine = 'Monthly total: $' + fmt(r.total) + '/mo' + (r.once > 0 ? '\nOne-time setup: $' + fmt(r.once) : '');
+          subj = 'My custom plan — $' + fmt(r.total) + '/mo' + (r.once > 0 ? ' + $' + fmt(r.once) + ' setup' : '');
+          body = 'Here is the plan I built:\n\n' + summaryText + '\n\n' + totalsLine + '\n\nI would like to book the free audit call.';
+        }
         ctaEl.setAttribute('href', 'mailto:christian@cliocreativeconcepts.com?subject=' +
           encodeURIComponent(subj) + '&body=' + encodeURIComponent(body));
       }
 
-      render();
+      document.querySelectorAll('.builder-mode .ptoggle').forEach(function (b) {
+        b.addEventListener('click', function () { setBuilderMode(b.dataset.bmode); });
+      });
+
+      setBuilderMode('monthly');
     })();
   </script>
 
