@@ -3126,6 +3126,7 @@
         platformDetail: {
           'Amazon': {
             includes: 'Listings + A+ built the way Amazon ranks them, Buy Box and account-health monitoring, Sponsored Products and Brands managed flat.',
+            includesLaunch: 'Seller Central + Brand Registry set up, your products uploaded as ranked listings with A+, Brand Store built — set up, then handed to you.',
             addons: [
               { id: 'amz-store',   label: 'Brand Store build',              price: 600, type: 'onetime' },
               { id: 'amz-aplus',   label: 'A+ / Enhanced Brand Content',    price: 600, type: 'onetime' },
@@ -3140,6 +3141,7 @@
           },
           'Shopify': {
             includes: 'Storefront and product pages optimized, on-site SEO, conversion basics.',
+            includesLaunch: 'Store built on a premium theme, your products uploaded, core pages, payments + shipping configured — set up, then handed to you.',
             addons: [
               { id: 'shop-build',  label: 'Custom theme build',            price: 900, type: 'onetime' },
               { id: 'shop-email',  label: 'Email & SMS flows',             price: 500, type: 'monthly' },
@@ -3152,6 +3154,7 @@
           },
           'Walmart': {
             includes: 'Listings + rich media, WFS and inventory health, Walmart Sponsored Products managed.',
+            includesLaunch: 'Seller account set up, your products uploaded as listings with rich media, WFS onboarding — set up, then handed to you.',
             addons: [
               { id: 'wmt-wfs',     label: 'WFS setup & migration',         price: 600, type: 'onetime' },
               { id: 'wmt-dsp',     label: 'Walmart Connect DSP',           price: 700, type: 'monthly' },
@@ -3162,6 +3165,7 @@
           },
           'eBay': {
             includes: 'Listings and store management, Promoted Listings managed.',
+            includesLaunch: 'Store set up, your products uploaded as listings, templates in place — set up, then handed to you.',
             addons: [
               { id: 'ebay-store',  label: 'Store design refresh',          price: 450, type: 'onetime' },
               { id: 'ebay-bulk',   label: 'Bulk listing migration',        price: 500, type: 'onetime' },
@@ -3172,6 +3176,7 @@
           },
           'Etsy': {
             includes: 'Listings and SEO tuned for Etsy search, Etsy Ads managed.',
+            includesLaunch: 'Shop set up, your products uploaded as SEO-tuned listings, branding in place — set up, then handed to you.',
             addons: [
               { id: 'etsy-brand',   label: 'Shop branding kit',            price: 400, type: 'onetime' },
               { id: 'etsy-digital', label: 'Digital product setup',        price: 350, type: 'onetime' },
@@ -3182,6 +3187,7 @@
           },
           'TikTok Shop': {
             includes: 'Shop and catalog setup, Shop Ads managed, daily operations.',
+            includesLaunch: 'Shop set up, your catalog uploaded, starter content ready to post — set up, then handed to you.',
             addons: [
               { id: 'tt-live',     label: 'Live shopping setup',           price: 500, type: 'onetime' },
               { id: 'tt-creator',  label: 'Creator / affiliate program',   price: 700, type: 'monthly' },
@@ -3306,7 +3312,9 @@
           card.className = 'pdetail';
           var name = document.createElement('p'); name.className = 'pdetail-name'; name.textContent = p;
           var inc = document.createElement('p'); inc.className = 'pdetail-inc';
-          inc.textContent = 'Included: ' + det.includes;
+          // one-time mode = setup + onboarding only (no ongoing management), so use the launch copy
+          var incText = (state.mode === 'launch' && det.includesLaunch) ? det.includesLaunch : det.includes;
+          inc.textContent = (state.mode === 'launch' ? 'Setup includes: ' : 'Included: ') + incText;
           card.appendChild(name); card.appendChild(inc);
           // one-time mode shows only setup (onetime) extras, not ongoing management
           var visAddons = (det.addons || []).filter(function (a) {
