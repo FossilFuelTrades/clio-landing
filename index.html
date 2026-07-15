@@ -1246,6 +1246,14 @@
     .cf-error { color: #e2725b; font-size: 0.85rem; margin: 0.1rem 0 0.6rem; }
     .cf-note { margin-top: 0.9rem; font-size: 0.8rem; color: var(--muted); }
 
+    .cf-links {
+      margin: 1.25rem 0 1rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+    .cf-group-label { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+    .cf-links .cf-field:last-child { margin-bottom: 0; }
+
     .checkout-col--cal { display: flex; flex-direction: column; justify-content: center; }
     .cal-step { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem; }
     .cal-placeholder p { font-size: 1.02rem; line-height: 1.6; color: var(--muted); max-width: 34ch; }
@@ -2915,6 +2923,17 @@
               <label for="cf-phone">Phone <span class="cf-opt">optional</span></label>
               <input type="tel" id="cf-phone" name="phone" autocomplete="tel">
             </div>
+            <div class="cf-links">
+              <span class="cf-group-label">Relevant links <span class="cf-opt">optional — helps us prep for your call</span></span>
+              <div class="cf-field">
+                <label for="cf-website">Website</label>
+                <input type="url" id="cf-website" name="website" placeholder="https://" autocomplete="url">
+              </div>
+              <div class="cf-field">
+                <label for="cf-amazon">Amazon store / listing</label>
+                <input type="url" id="cf-amazon" name="amazon" placeholder="https://">
+              </div>
+            </div>
             <div class="cf-field">
               <label for="cf-message">Anything we should know? <span class="cf-opt">optional</span></label>
               <textarea id="cf-message" name="message" rows="3"></textarea>
@@ -3729,16 +3748,18 @@
         var name = document.getElementById('cf-name').value.trim(),
             email = document.getElementById('cf-email').value.trim(),
             phone = document.getElementById('cf-phone').value.trim(),
+            website = document.getElementById('cf-website').value.trim(),
+            amazon = document.getElementById('cf-amazon').value.trim(),
             message = document.getElementById('cf-message').value.trim();
         var err = document.getElementById('cf-error');
         if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.hidden = false; return; }
         err.hidden = true;
-        var notes = [planToText(window.CLIO_PLAN), phone ? ('Phone: ' + phone) : '', message ? ('Message: ' + message) : ''].filter(Boolean).join('\n');
+        var notes = [planToText(window.CLIO_PLAN), phone ? ('Phone: ' + phone) : '', website ? ('Website: ' + website) : '', amazon ? ('Amazon: ' + amazon) : '', message ? ('Message: ' + message) : ''].filter(Boolean).join('\n');
         if (CAL_LINK) {
           mountCal(name, email, notes);
         } else {
           var subj = 'Free audit call — ' + name + (window.CLIO_PLAN ? (' (' + (window.CLIO_PLAN.tierName || 'custom plan') + ')') : '');
-          var body = 'Name: ' + name + '\nEmail: ' + email + (phone ? ('\nPhone: ' + phone) : '') + '\n\n' + planToText(window.CLIO_PLAN) + (message ? ('\n\nMessage:\n' + message) : '') + '\n\nI\'d like to book the free audit call.';
+          var body = 'Name: ' + name + '\nEmail: ' + email + (phone ? ('\nPhone: ' + phone) : '') + (website ? ('\nWebsite: ' + website) : '') + (amazon ? ('\nAmazon: ' + amazon) : '') + '\n\n' + planToText(window.CLIO_PLAN) + (message ? ('\n\nMessage:\n' + message) : '') + '\n\nI\'d like to book the free audit call.';
           window.location.href = 'mailto:christian@cliocreativeconcepts.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
           calNote('Thanks, ' + name.split(' ')[0] + ' — your details are on their way to us by email. Our live booking calendar is being connected and will drop in here shortly.');
         }
