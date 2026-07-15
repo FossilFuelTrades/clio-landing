@@ -1942,6 +1942,7 @@
       grid-template-columns: 1fr;
       gap: clamp(1.5rem, 3vw, 2.25rem);
       margin-top: clamp(1.75rem, 3.5vw, 2.25rem);
+      align-items: start; /* each card takes its natural height — no stretch/blank space when aspect ratios differ in a row */
     }
 
     .case-card {
