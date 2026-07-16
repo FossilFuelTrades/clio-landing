@@ -918,6 +918,14 @@
       color: var(--muted);
     }
 
+    .tier-setup {
+      margin: -0.75rem 0 1.1rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .tier--standard .tier-setup { color: color-mix(in srgb, var(--dark-ink) 62%, transparent); }
+
     .tier-story {
       font-style: italic;
       color: var(--ink);
@@ -2435,6 +2443,7 @@
         <li class="tier" data-reveal>
           <h3 class="tier-name">Basic</h3>
           <p class="tier-price">$1,997<span class="tier-period">/mo</span></p>
+          <p class="tier-setup">+ $500 one-time onboarding setup</p>
           <p class="tier-story">"Run my store right"</p>
           <ul class="tier-bullets">
             <li>1 marketplace, 20 SKUs worked</li>
@@ -2450,6 +2459,7 @@
           <span class="tier-tag">Most popular</span>
           <h3 class="tier-name">Standard</h3>
           <p class="tier-price">$2,997<span class="tier-period">/mo</span></p>
+          <p class="tier-setup">+ $1,000 one-time onboarding setup</p>
           <p class="tier-story">"Run everything I sell on"</p>
           <ul class="tier-bullets">
             <li>up to 3 marketplaces (TikTok Shop included as one), 75 SKUs</li>
@@ -2464,6 +2474,7 @@
         <li class="tier" data-reveal>
           <h3 class="tier-name">Premium</h3>
           <p class="tier-price">$4,997<span class="tier-period">/mo</span></p>
+          <p class="tier-setup">+ $1,500 one-time onboarding setup</p>
           <p class="tier-story">"Run my whole growth engine"</p>
           <ul class="tier-bullets">
             <li>everything in Standard, 150 SKUs</li>
@@ -2478,6 +2489,7 @@
         <li class="tier" data-reveal>
           <h3 class="tier-name">Enterprise</h3>
           <p class="tier-price">Custom</p>
+          <p class="tier-setup">onboarding setup in your quote</p>
           <p class="tier-story">"Run my operation"</p>
           <ul class="tier-bullets">
             <li>4+ platforms / multi-brand (Vendor + Seller Central, Walmart, Target+)</li>
@@ -2489,12 +2501,12 @@
           <a href="#book" class="btn-outline tier-cta">Book a call</a>
         </li>
       </ul>
-      <p class="pricing-footer" id="footer-monthly">Setup fee $500 — waived for same-day signing. Not a perfect fit? <a href="#builder" style="color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:0.15em;">Build a custom plan</a>.</p>
+      <p class="pricing-footer" id="footer-monthly">One-time onboarding setup — $500 Basic · $1,000 Standard · $1,500 Premium — then the flat monthly, no lock-in. Not a perfect fit? <a href="#builder" style="color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:0.15em;">Build a custom plan</a>.</p>
 
       <ul class="tier-grid tier-grid--launch" id="grid-launch" hidden>
         <li class="tier" data-reveal>
           <h3 class="tier-name">Starter</h3>
-          <p class="tier-price">from $2,400<span class="tier-period"> one-time</span></p>
+          <p class="tier-price">from $3,200<span class="tier-period"> one-time</span></p>
           <p class="tier-story">"Get me live"</p>
           <div class="tier-plat">
             <span class="tier-plat-label">Amazon</span>
@@ -2516,13 +2528,13 @@
             <li>1 training session + Starter playbook</li>
             <li>30-day support</li>
           </ul>
-          <p class="tier-note">One platform included · add the second as a flat add-on · <strong style="color:var(--accent);font-weight:600;">this setup is included free when we run it monthly.</strong></p>
+          <p class="tier-note">One platform included · add the second as a flat add-on. The full build, yours to keep — <strong style="color:var(--accent);font-weight:600;">prefer we run it? See monthly.</strong></p>
           <a href="#book" class="btn-primary tier-cta">Book a call</a>
         </li>
         <li class="tier tier--standard" data-reveal style="--reveal-delay: 100ms">
           <span class="tier-tag">Most popular</span>
           <h3 class="tier-name">Standard</h3>
-          <p class="tier-price">from $3,900<span class="tier-period"> one-time</span></p>
+          <p class="tier-price">from $4,900<span class="tier-period"> one-time</span></p>
           <p class="tier-story">"Launch me right"</p>
           <div class="tier-plat">
             <span class="tier-plat-label">Amazon</span>
@@ -2544,12 +2556,12 @@
             <li>2 training sessions + full SOP playbooks (Loom)</li>
             <li>45-day support</li>
           </ul>
-          <p class="tier-note">One platform included · add the second as a flat add-on · <strong style="color:var(--accent);font-weight:600;">this setup is included free when we run it monthly.</strong></p>
+          <p class="tier-note">One platform included · add the second as a flat add-on. The full build, yours to keep — <strong style="color:var(--accent);font-weight:600;">prefer we run it? See monthly.</strong></p>
           <a href="#book" class="btn-primary tier-cta">Book a call</a>
         </li>
         <li class="tier" data-reveal>
           <h3 class="tier-name">Premium</h3>
-          <p class="tier-price">from $6,500<span class="tier-period"> one-time</span></p>
+          <p class="tier-price">from $7,900<span class="tier-period"> one-time</span></p>
           <p class="tier-story">"Launch me loaded"</p>
           <div class="tier-plat">
             <span class="tier-plat-label">Amazon</span>
@@ -2571,7 +2583,7 @@
             <li>3–4 training sessions + advanced playbooks</li>
             <li>60-day support</li>
           </ul>
-          <p class="tier-note">One platform included · add the second as a flat add-on · <strong style="color:var(--accent);font-weight:600;">this setup is included free when we run it monthly.</strong></p>
+          <p class="tier-note">One platform included · add the second as a flat add-on. The full build, yours to keep — <strong style="color:var(--accent);font-weight:600;">prefer we run it? See monthly.</strong></p>
           <a href="#book" class="btn-primary tier-cta">Book a call</a>
         </li>
       </ul>
@@ -3360,15 +3372,15 @@
           }
         },
         platformTiers: [
-          { upTo: 1,   name: 'Basic',    price: 1997 },
-          { upTo: 3,   name: 'Standard', price: 2997 },
-          { upTo: 999, name: 'Premium',  price: 4997 }
+          { upTo: 1,   name: 'Basic',    price: 1997, setup: 500 },
+          { upTo: 3,   name: 'Standard', price: 2997, setup: 1000 },
+          { upTo: 999, name: 'Premium',  price: 4997, setup: 1500 }
         ],
         // ONE-TIME "Set me up once" launch tiers (by platform count). One-time.
         launchTiers: [
-          { upTo: 1,   name: 'Starter',  price: 2400 },
-          { upTo: 3,   name: 'Standard', price: 3900 },
-          { upTo: 999, name: 'Premium',  price: 6500 }
+          { upTo: 1,   name: 'Starter',  price: 3200 },
+          { upTo: 3,   name: 'Standard', price: 4900 },
+          { upTo: 999, name: 'Premium',  price: 7900 }
         ],
         // Add-ons. type 'monthly' adds to the retainer; type 'onetime' is a
         // one-off setup fee shown separately.
@@ -3533,7 +3545,7 @@
       var COPY = {
         monthly: { per: 'per month, flat', terms: 'month-to-month · cancel anytime · judged on the first weekly report',
                    hint: "Click a platform to see what's included and add platform-specific extras. 1 platform = Basic · 2 to 3 = Standard · 4+ = Premium" },
-        launch:  { per: 'one-time build', terms: 'one-time · training + playbooks · this setup is included free when we run it monthly',
+        launch:  { per: 'one-time build', terms: 'one-time · training + playbooks · the full build, yours to keep and run',
                    hint: "Click a platform to see what's included and add setup extras. 1 platform = Starter · 2 to 3 = Standard · 4+ = Premium" }
       };
 
@@ -3584,6 +3596,7 @@
         var total = tier.price;
         lines.push({ label: tier.name + ' plan' + platList, amount: tier.price, per: 'mo' });
         var once = 0;
+        if (tier.setup) { once += tier.setup; lines.push({ label: 'Onboarding setup (one-time)', amount: tier.setup, per: 'once' }); }
         PRICING.addons.forEach(function (a) {
           if (!state.addons[a.id]) return;
           if (a.type === 'onetime') { once += a.price; lines.push({ label: a.label, amount: a.price, per: 'once' }); }
